@@ -7,9 +7,8 @@ import com.solvd.scheduler.bin.school.Subject;
 public class Teacher {
 
     private int id;
-    private Subject teachingSubject;         // subjects able to teach
-
-    private Schedule teacherSchedule;
+    private Subject teachingSubject;         // subject
+    private Schedule teacherSchedule;        // teachers schedule
 
 
     public Teacher() {
@@ -34,10 +33,4 @@ public class Teacher {
         return teacherSchedule;
     }
 
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "id=" + id +
-                ", teachingSubject=" + teachingSubject;
-    }
 }

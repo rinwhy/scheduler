@@ -28,10 +28,5 @@ public class StudentGroup {
         return groupSchedule;
     }
 
-    @Override
-    public String toString() {
-        return
-                "groupSchedule=" + groupSchedule;
-    }
 
 }
