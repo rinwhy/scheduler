@@ -1,24 +1,43 @@
 package com.solvd.scheduler.bin;
 
-import java.util.List;
+import com.solvd.scheduler.bin.school.Schedule;
+import com.solvd.scheduler.bin.school.Subject;
+
 
 public class Teacher {
 
     private int id;
-    private String name;
-    private List<Subject> subjects;         // subjects able to teach
-    private int teachingExperience;        // years of experience
-    private float ratingScore;          //rating will determine their priority for scheduling
+    private Subject teachingSubject;         // subjects able to teach
+
+    private Schedule teacherSchedule;
 
 
     public Teacher() {
     }
 
-    public Teacher(int id, String name, List<Subject> subjects, int teachingExperience, float ratingScore) {
+    public Teacher(int id, Subject teachingSubject) {
         this.id = id;
-        this.name = name;
-        this.subjects = subjects;
-        this.teachingExperience = teachingExperience;
-        this.ratingScore = ratingScore;
+        this.teachingSubject = teachingSubject;
+
+        teacherSchedule = new Schedule(4);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Subject getTeachingSubject() {
+        return teachingSubject;
+    }
+
+    public Schedule getTeacherSchedule() {
+        return teacherSchedule;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", teachingSubject=" + teachingSubject;
     }
 }
