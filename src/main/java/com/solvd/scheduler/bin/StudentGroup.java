@@ -4,15 +4,34 @@ import java.util.List;
 
 public class StudentGroup {
 
-    private int id;
-    private List<Student> studentsList;
+    private final int id;
+    private final Schedule groupSchedule;
+    private List<Subject> syllabus;
 
-
-    public void addStudentToList(Student student) {
-        studentsList.add(student);
+    public StudentGroup(int id) {
+        this.id = id;
+        groupSchedule = new Schedule(School.getTotalPeriods());
     }
 
-    public List<Student> getStudentsList() {
-        return studentsList;
+
+    public int getId() {
+        return id;
     }
+
+    public List<Subject> getSyllabus() {
+        return syllabus;
+    }
+
+    public void setSyllabus(List<Subject> syllabus) {
+        this.syllabus = syllabus;
+    }
+
+    public Schedule getGroupSchedule() {
+        return groupSchedule;
+    }
+
+    public void printStudentSchedule() {
+        groupSchedule.printStudentsSchedule(this);
+    }
+
 }
