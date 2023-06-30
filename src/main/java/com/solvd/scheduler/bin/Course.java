@@ -1,4 +1,4 @@
-package com.solvd.scheduler.bin.school;
+package com.solvd.scheduler.bin;
 
 public enum Course {
 

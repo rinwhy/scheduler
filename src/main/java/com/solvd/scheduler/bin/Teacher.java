@@ -1,12 +1,10 @@
 package com.solvd.scheduler.bin;
 
-import com.solvd.scheduler.bin.school.Schedule;
-import com.solvd.scheduler.bin.school.Subject;
-
 
 public class Teacher {
 
     private int id;
+    private String name;
     private Subject teachingSubject;         // subject
     private Schedule teacherSchedule;        // teachers schedule
 
@@ -14,11 +12,12 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(int id, Subject teachingSubject) {
+    public Teacher(int id, String name, Subject teachingSubject) {
         this.id = id;
+        this.name = name;
         this.teachingSubject = teachingSubject;
 
-        teacherSchedule = new Schedule(4);
+        teacherSchedule = new Schedule(School.getTotalPeriods());
     }
 
     public int getId() {
@@ -29,8 +28,16 @@ public class Teacher {
         return teachingSubject;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Schedule getTeacherSchedule() {
         return teacherSchedule;
+    }
+
+    public void printTeachersSchedule() {
+        teacherSchedule.printTeachersSchedule(this);
     }
 
 }

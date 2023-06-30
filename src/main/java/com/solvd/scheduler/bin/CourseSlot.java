@@ -1,29 +1,37 @@
 package com.solvd.scheduler.bin;
 
-import com.solvd.scheduler.bin.school.Subject;
-
 import java.time.DayOfWeek;
 
 public class CourseSlot {
 
 
-    private boolean slotAssigned;
+    private boolean slotOpen;
 
-    private String  days;
+    private DayOfWeek  day;
+    private int period;
     private Subject subject;
     private Teacher teacherAssigned;
+    private StudentGroup studentGroup;
 
     public CourseSlot() {
-        slotAssigned = false;
+        slotOpen = true;
     }
 
-
-    public boolean isSlotAssigned() {
-        return slotAssigned;
+    public CourseSlot(DayOfWeek day, int period, Subject subject, Teacher teacherAssigned, StudentGroup studentGroup) {
+        this.day = day;
+        this.period = period;
+        this.subject = subject;
+        this.teacherAssigned = teacherAssigned;
+        this.studentGroup = studentGroup;
+        slotOpen = false;
     }
 
-    public void setSlotAssigned(boolean slotAssigned) {
-        this.slotAssigned = slotAssigned;
+    public boolean isSlotOpen() {
+        return slotOpen;
+    }
+
+    public void setSlotOpen(boolean slotOpen) {
+        this.slotOpen = slotOpen;
     }
 
     public Subject getSubject() {
@@ -34,19 +42,35 @@ public class CourseSlot {
         this.subject = subject;
     }
 
+    public Teacher getTeacherAssigned() {
+        return teacherAssigned;
+    }
+
     public void setTeacherAssigned(Teacher teacherAssigned) {
         this.teacherAssigned = teacherAssigned;
     }
 
-    public void setDay(String days) {
-        this.days = days;
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
+    }
+
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
+    }
+
+    public DayOfWeek getDay() {
+        return day;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
     }
 
     @Override
     public String toString() {
         return "CourseSlot{" +
-                "slotAssigned=" + slotAssigned +
-                ", day=" + days +
+                "slotAssigned=" + slotOpen +
+                ", day=" + day +
                 ", subject=" + subject +
                 ", teacherAssigned=" + teacherAssigned +
                 '}';

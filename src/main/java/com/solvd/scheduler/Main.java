@@ -1,9 +1,10 @@
 package com.solvd.scheduler;
 
-import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.bin.Teacher;
-import com.solvd.scheduler.bin.school.Subject;
+import com.solvd.scheduler.algorithm.ScheduleGenerator;
+import com.solvd.scheduler.bin.School;
+import com.solvd.scheduler.bin.Subject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,29 +12,7 @@ import java.util.List;
 
 public class Main {
 
-    private static final int periods = 4;
-
     public static void main(String[] args) {
-
-        //create our teachers
-        Teacher teacher1 = new Teacher(1, Subject.MATH);
-        Teacher teacher2 = new Teacher(2, Subject.SCIENCE);
-        Teacher teacher3 = new Teacher(3, Subject.ENGLISH);
-        Teacher teacher4 = new Teacher(4, Subject.HISTORY);
-        Teacher teacher5 = new Teacher(5, Subject.FOREIGN_LANGUAGE);
-        Teacher teacher6 = new Teacher(6, Subject.TECHNOLOGY);
-        Teacher teacher7 = new Teacher(7, Subject.ART);
-        Teacher teacher8 = new Teacher(8, Subject.PHYSICAL_EDUCATION);
-
-        List<Teacher> teacherList = new ArrayList<>();
-        Collections.addAll(teacherList, teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8);
-
-        //create our groups
-        StudentGroup group1 = new StudentGroup(1);
-        StudentGroup group2 = new StudentGroup(2);
-        StudentGroup group3 = new StudentGroup(3);
-
-
 
         //input our subjects that need to be taught
         List<Subject> subjects = new ArrayList<>();
@@ -46,174 +25,114 @@ public class Main {
         subjects.add(Subject.ART);
         subjects.add(Subject.PHYSICAL_EDUCATION);
 
+
+        //create our teachers
+        Teacher teacher1 = new Teacher(1, "Marie Phelps", Subject.MATH);
+        Teacher teacher2 = new Teacher(2, "Zane Barlow", Subject.SCIENCE);
+        Teacher teacher3 = new Teacher(3, "Katelyn Cordova", Subject.ENGLISH);
+        Teacher teacher4 = new Teacher(4, "Elif Hammond", Subject.HISTORY);
+        Teacher teacher5 = new Teacher(5, "Emmie Robinson", Subject.FOREIGN_LANGUAGE);
+        Teacher teacher6 = new Teacher(6, "Sidney Robertson", Subject.TECHNOLOGY);
+        Teacher teacher7 = new Teacher(7, "Colin Giles", Subject.ART);
+        Teacher teacher8 = new Teacher(8, "Shakira Stone", Subject.PHYSICAL_EDUCATION);
+
+        Collections.addAll(School.getTeacherList(), teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8);
+
+
+        //create our groups
+        StudentGroup group1 = new StudentGroup(1);
+        StudentGroup group2 = new StudentGroup(2);
+        StudentGroup group3 = new StudentGroup(3);
+        StudentGroup group4 = new StudentGroup(4);
+        StudentGroup group5 = new StudentGroup(5);
+        StudentGroup group6 = new StudentGroup(6);
+        StudentGroup group7 = new StudentGroup(7);
+        StudentGroup group8 = new StudentGroup(8);
+        StudentGroup group9 = new StudentGroup(9);
+
         //add the subjects to a groups syllabus
         group1.setSyllabus(subjects);
-
-        //set the subjects of the a group
-        //loop through the subjects that need to be taught
-        for (Subject subject : group1.getSyllabus()) {
-            //loop through the teachers and see which one teaches that subject
-            for (Teacher teacher : teacherList) {
-                if (teacher.getTeachingSubject() == subject) {
-                    //when matched check the teachers available slots
-                    for (int i = 1; i <= periods; i++) {
-                        // if a class period is open for both the group and teacher then that slot will be taken by that subject
-                        if(teacher.getTeacherSchedule().checkAvailabilityMWF(i) &&
-                            group1.getGroupSchedule().checkAvailabilityMWF(i)) {
-
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("MWF");
-                            courseSlot.setTeacherAssigned(teacher);
-
-                            teacher.getTeacherSchedule().setMWFCourseSlot(i,courseSlot);
-                            group1.getGroupSchedule().setMWFCourseSlot(i,courseSlot);
-
-                            break;
-                        }
-
-                        if(teacher.getTeacherSchedule().checkAvailabilityTueThur(i) &&
-                                group1.getGroupSchedule().checkAvailabilityTueThur(i)) {
-
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("Tues/Thurs");
-                            courseSlot.setTeacherAssigned(teacher);
-
-                            teacher.getTeacherSchedule().setTueCourseSlot(i,courseSlot);
-                            group1.getGroupSchedule().setTueCourseSlot(i,courseSlot);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        //add the subjects to a groups syllabus
         group2.setSyllabus(subjects);
-
-        //set the subjects of the a group
-        //loop through the subjects that need to be taught
-        for (Subject subject : group2.getSyllabus()) {
-            //loop through the teachers and see which one teaches that subject
-            for (Teacher teacher : teacherList) {
-                if (teacher.getTeachingSubject() == subject) {
-                    //when matched check the teachers available slots
-                    for (int i = 1; i <= periods; i++) {
-                        // if a class period is open for both the group and teacher then that slot will be taken by that subject
-                        if(teacher.getTeacherSchedule().checkAvailabilityMWF(i) &&
-                                group2.getGroupSchedule().checkAvailabilityMWF(i)) {
-
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("MWF");
-                            courseSlot.setTeacherAssigned(teacher);
-
-                            teacher.getTeacherSchedule().setMWFCourseSlot(i,courseSlot);
-                            group2.getGroupSchedule().setMWFCourseSlot(i,courseSlot);
-
-                            break;
-                        }
-
-                        if(teacher.getTeacherSchedule().checkAvailabilityTueThur(i) &&
-                                group2.getGroupSchedule().checkAvailabilityTueThur(i)) {
-
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("Tues/Thurs");
-                            courseSlot.setTeacherAssigned(teacher);
-
-                            teacher.getTeacherSchedule().setTueCourseSlot(i,courseSlot);
-                            group2.getGroupSchedule().setTueCourseSlot(i,courseSlot);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-
-        //add the subjects to a groups syllabus
         group3.setSyllabus(subjects);
+        group4.setSyllabus(subjects);
+        group5.setSyllabus(subjects);
+        group6.setSyllabus(subjects);
+        group7.setSyllabus(subjects);
+        group8.setSyllabus(subjects);
+        group9.setSyllabus(subjects);
 
-        //set the subjects of the a group
-        //loop through the subjects that need to be taught
-        for (Subject subject : group3.getSyllabus()) {
-            //loop through the teachers and see which one teaches that subject
-            for (Teacher teacher : teacherList) {
-                if (teacher.getTeachingSubject() == subject) {
-                    //when matched check the teachers available slots
-                    for (int i = 1; i <= periods; i++) {
-                        // if a class period is open for both the group and teacher then that slot will be taken by that subject
-                        if(teacher.getTeacherSchedule().checkAvailabilityMWF(i) &&
-                                group3.getGroupSchedule().checkAvailabilityMWF(i)) {
 
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("MWF");
-                            courseSlot.setTeacherAssigned(teacher);
+//        //generate the single schedule
+//        ScheduleGenerator.generateSinglePattern(group1);
+//        ScheduleGenerator.generateSinglePattern(group2);
+//        ScheduleGenerator.generateSinglePattern(group3);
+//        ScheduleGenerator.generateSinglePattern(group4);
+//        ScheduleGenerator.generateSinglePattern(group5);
+//        ScheduleGenerator.generateSinglePattern(group6);
+//        ScheduleGenerator.generateSinglePattern(group7);
+//        ScheduleGenerator.generateSinglePattern(group8);
+//        ScheduleGenerator.generateSinglePattern(group9);
 
-                            teacher.getTeacherSchedule().setMWFCourseSlot(i,courseSlot);
-                            group3.getGroupSchedule().setMWFCourseSlot(i,courseSlot);
 
-                            break;
-                        }
+//        //generate the double day pattern   M/W  ... T/Thur ... fri
+//        ScheduleGenerator.generateDoublePattern(group1);
+//        ScheduleGenerator.generateDoublePattern(group2);
+//        ScheduleGenerator.generateDoublePattern(group3);
+//        ScheduleGenerator.generateDoublePattern(group4);
+//        ScheduleGenerator.generateDoublePattern(group5);
+//        ScheduleGenerator.generateDoublePattern(group6);
+//        ScheduleGenerator.generateDoublePattern(group7);
+//        ScheduleGenerator.generateDoublePattern(group8);
+//        ScheduleGenerator.generateDoublePattern(group9);
 
-                        if(teacher.getTeacherSchedule().checkAvailabilityTueThur(i) &&
-                                group3.getGroupSchedule().checkAvailabilityTueThur(i)) {
+        //generate the MWF pattern
+        ScheduleGenerator.generateMWFPattern(group1);
+        ScheduleGenerator.generateMWFPattern(group2);
+        ScheduleGenerator.generateMWFPattern(group3);
+        ScheduleGenerator.generateMWFPattern(group4);
+        ScheduleGenerator.generateMWFPattern(group5);
+        ScheduleGenerator.generateMWFPattern(group6);
+        ScheduleGenerator.generateMWFPattern(group7);
+        ScheduleGenerator.generateMWFPattern(group8);
+//        ScheduleGenerator.generateMWFPattern(group9);
 
-                            CourseSlot courseSlot = new CourseSlot();
-                            courseSlot.setSlotAssigned(true);
-                            courseSlot.setSubject(subject);
-                            courseSlot.setDay("Tues/Thurs");
-                            courseSlot.setTeacherAssigned(teacher);
 
-                            teacher.getTeacherSchedule().setTueCourseSlot(i,courseSlot);
-                            group3.getGroupSchedule().setTueCourseSlot(i,courseSlot);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-//
-//        group1.getGroupSchedule().printSchedule();
-//        System.out.println("\n\n");
-//        group2.getGroupSchedule().printSchedule();
-//        System.out.println("\n\n");
-//        group3.getGroupSchedule().printSchedule();
-//        System.out.println("\n\n");
-
-        teacher1.getTeacherSchedule().printSchedule();
+        group1.printStudentSchedule();
         System.out.println("\n\n");
-        teacher2.getTeacherSchedule().printSchedule();
-
+        group2.printStudentSchedule();
         System.out.println("\n\n");
-        teacher3.getTeacherSchedule().printSchedule();
-
+        group3.printStudentSchedule();
         System.out.println("\n\n");
-        teacher4.getTeacherSchedule().printSchedule();
-
+        group4.printStudentSchedule();
         System.out.println("\n\n");
-        teacher5.getTeacherSchedule().printSchedule();
+        group5.printStudentSchedule();
         System.out.println("\n\n");
-        teacher6.getTeacherSchedule().printSchedule();
+        group6.printStudentSchedule();
         System.out.println("\n\n");
-        teacher7.getTeacherSchedule().printSchedule();
+        group7.printStudentSchedule();
         System.out.println("\n\n");
-        teacher8.getTeacherSchedule().printSchedule();
+        group8.printStudentSchedule();
+        System.out.println("\n\n");
 
 
+        System.out.println("\n_____________________________________________________________________________________________________________________\n");
+
+        teacher1.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher2.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher3.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher4.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher5.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher6.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher7.printTeachersSchedule();
+        System.out.println("\n\n");
+        teacher8.printTeachersSchedule();
+        System.out.println("\n\n");
 
     }
 }
