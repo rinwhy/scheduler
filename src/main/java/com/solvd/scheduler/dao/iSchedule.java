@@ -5,7 +5,7 @@ public interface iSchedule<T> {
 
     T getById(Integer scheduleId);
 
-    void saveById(T schedule);
+    void insert(T schedule);
 
     void update(T schedule);
 

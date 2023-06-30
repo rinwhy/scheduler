@@ -6,7 +6,7 @@ public interface iStudent<T> {
 
     <T> T getById(Integer studentId);
 
-    void save(T student);
+    void insert(T student);
 
     void update(T student);
 

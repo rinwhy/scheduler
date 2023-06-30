@@ -6,7 +6,7 @@ public interface iTeacher<T> {
 
     T getById(Integer teacherId);
 
-    void save(T teacher);
+    void insert(T teacher);
 
     void update(T teacher);
 
