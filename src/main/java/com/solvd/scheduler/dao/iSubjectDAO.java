@@ -1,6 +1,6 @@
 package com.solvd.scheduler.dao;
 
-public interface iSubject<T> {
+public interface iSubjectDAO<T> {
 
     T getById(Integer subjectId);
 

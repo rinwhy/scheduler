@@ -2,7 +2,7 @@ package com.solvd.scheduler.dao;
 
 import java.util.List;
 
-public interface iStudent<T> {
+public interface iStudentDAO<T> {
 
     <T> T getById(Integer studentId);
 
