@@ -6,7 +6,6 @@ public class CourseSlot {
 
 
     private boolean slotOpen;
-
     private DayOfWeek  day;
     private int period;
     private Subject subject;
@@ -34,6 +33,22 @@ public class CourseSlot {
         this.slotOpen = slotOpen;
     }
 
+    public DayOfWeek getDay() {
+        return day;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
     public Subject getSubject() {
         return subject;
     }
@@ -56,14 +71,6 @@ public class CourseSlot {
 
     public void setStudentGroup(StudentGroup studentGroup) {
         this.studentGroup = studentGroup;
-    }
-
-    public DayOfWeek getDay() {
-        return day;
-    }
-
-    public void setDay(DayOfWeek day) {
-        this.day = day;
     }
 
     @Override

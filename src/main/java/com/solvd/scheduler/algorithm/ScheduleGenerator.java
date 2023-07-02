@@ -22,35 +22,35 @@ public class ScheduleGenerator {
                     //when matched check the teachers available slots
                     for (int i = 1; i <= School.getTotalPeriods(); i++) {
                         // if a class period is open for both the group and teacher then that slot will be taken by that subject
-                        if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.MONDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.MONDAY)) {
+                        if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.MONDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.TUESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.TUESDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.TUESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.THURSDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.THURSDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.FRIDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.FRIDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
                         }
                     }
@@ -70,35 +70,35 @@ public class ScheduleGenerator {
                     //when matched check the teachers available slots
                     for (int i = 1; i <= School.getTotalPeriods(); i++) {
                         // if a class period is open for both the group and teacher on BOTH mondays and Tuesdays
-                        if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.MONDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.MONDAY) &&
-                                teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY)) {
+                        if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
+                                teacher.getTeacherSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot2);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot2);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot2);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot2);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.TUESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.TUESDAY) &&
-                                teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.THURSDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.THURSDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
+                                teacher.getTeacherSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot2);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot2);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot2);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot2);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.FRIDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.FRIDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
                             break;
                         }
                     }
@@ -119,35 +119,35 @@ public class ScheduleGenerator {
                     //when matched check the teachers available slots
                     for (int i = 1; i <= School.getTotalPeriods(); i++) {
                         // if a class period is open for both the group and teacher on BOTH mondays and Tuesdays
-                        if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.MONDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.MONDAY) &&
-                                teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.WEDNESDAY) &&
-                                teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.FRIDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.FRIDAY)) {
+                        if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
+                                teacher.getTeacherSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
+                                teacher.getTeacherSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.MONDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot2);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.WEDNESDAY, courseSlot2);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot2);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot2);
 
                             CourseSlot courseSlot3 = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot2);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.FRIDAY, courseSlot2);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot3);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot3);
                             break;
-                        } else if (teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.TUESDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.TUESDAY) &&
-                                teacher.getTeacherSchedule().checkAvailability(i, DayOfWeek.THURSDAY) &&
-                                studentGroup.getGroupSchedule().checkAvailability(i, DayOfWeek.THURSDAY)) {
+                        } else if (teacher.getTeacherSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
+                                teacher.getTeacherSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
+                                studentGroup.getGroupSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.TUESDAY, courseSlot);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
-                            teacher.getTeacherSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot2);
-                            studentGroup.getGroupSchedule().setCourseSlot(i, DayOfWeek.THURSDAY, courseSlot2);
+                            teacher.getTeacherSchedule().setCourseSlot(courseSlot2);
+                            studentGroup.getGroupSchedule().setCourseSlot(courseSlot2);
                             break;
                         }
                     }
