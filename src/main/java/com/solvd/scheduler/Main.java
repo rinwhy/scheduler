@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         //input our subjects that need to be taught
         List<Subject> subjects = new ArrayList<>();
         subjects.add(Subject.MATH);
@@ -24,6 +25,9 @@ public class Main {
         subjects.add(Subject.TECHNOLOGY);
         subjects.add(Subject.ART);
         subjects.add(Subject.PHYSICAL_EDUCATION);
+        School.getSyllabus().addAll(subjects);
+
+
 
 
         //create our teachers
@@ -35,7 +39,6 @@ public class Main {
         Teacher teacher6 = new Teacher(6, "Sidney Robertson", Subject.TECHNOLOGY);
         Teacher teacher7 = new Teacher(7, "Colin Giles", Subject.ART);
         Teacher teacher8 = new Teacher(8, "Shakira Stone", Subject.PHYSICAL_EDUCATION);
-
         Collections.addAll(School.getTeacherList(), teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8);
 
 
@@ -50,16 +53,16 @@ public class Main {
         StudentGroup group8 = new StudentGroup(8);
         StudentGroup group9 = new StudentGroup(9);
 
-        //add the subjects to a groups syllabus
-        group1.setSyllabus(subjects);
-        group2.setSyllabus(subjects);
-        group3.setSyllabus(subjects);
-        group4.setSyllabus(subjects);
-        group5.setSyllabus(subjects);
-        group6.setSyllabus(subjects);
-        group7.setSyllabus(subjects);
-        group8.setSyllabus(subjects);
-        group9.setSyllabus(subjects);
+//        //add the subjects to a groups syllabus
+//        group1.setSyllabus(subjects);
+//        group2.setSyllabus(subjects);
+//        group3.setSyllabus(subjects);
+//        group4.setSyllabus(subjects);
+//        group5.setSyllabus(subjects);
+//        group6.setSyllabus(subjects);
+//        group7.setSyllabus(subjects);
+//        group8.setSyllabus(subjects);
+//        group9.setSyllabus(subjects);
 
 
 //        //generate the single schedule
@@ -94,7 +97,6 @@ public class Main {
         ScheduleGenerator.generateMWFPattern(group6);
         ScheduleGenerator.generateMWFPattern(group7);
         ScheduleGenerator.generateMWFPattern(group8);
-//        ScheduleGenerator.generateMWFPattern(group9);
 
 
         group1.printStudentSchedule();
