@@ -26,6 +26,7 @@ public class Main {
         subjects.add(Subject.PHYSICAL_EDUCATION);
 
 
+
         //create our teachers
         Teacher teacher1 = new Teacher(1, "Marie Phelps", Subject.MATH);
         Teacher teacher2 = new Teacher(2, "Zane Barlow", Subject.SCIENCE);
