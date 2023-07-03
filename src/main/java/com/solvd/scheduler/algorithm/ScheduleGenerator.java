@@ -13,9 +13,9 @@ public class ScheduleGenerator {
 
     public static void generateSinglePattern(StudentGroup studentGroup) {
 
-        //set the subjects of the a group
+        //set the subjects of a group
         //loop through the subjects that need to be taught
-        for (Subject subject : studentGroup.getSyllabus()) {
+        for (Subject subject : School.getSyllabus()) {
             //loop through the teachers and see which one teaches that subject
             for (Teacher teacher : School.getTeacherList()) {
                 if (teacher.getTeachingSubject() == subject) {
@@ -63,7 +63,7 @@ public class ScheduleGenerator {
 
         //set the subjects of the a group
         //loop through the subjects that need to be taught
-        for (Subject subject : studentGroup.getSyllabus()) {
+        for (Subject subject : School.getSyllabus()) {
             //loop through the teachers and see which one teaches that subject
             for (Teacher teacher : School.getTeacherList()) {
                 if (teacher.getTeachingSubject() == subject) {
@@ -112,7 +112,7 @@ public class ScheduleGenerator {
 
         //set the subjects of the a group
         //loop through the subjects that need to be taught
-        for (Subject subject : studentGroup.getSyllabus()) {
+        for (Subject subject : School.getSyllabus()) {
             //loop through the teachers and see which one teaches that subject
             for (Teacher teacher : School.getTeacherList()) {
                 if (teacher.getTeachingSubject() == subject) {
