@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 
 public class CourseSlot {
 
-
+    private int courseSlotId;
     private boolean slotOpen;
     private DayOfWeek  day;
     private int period;

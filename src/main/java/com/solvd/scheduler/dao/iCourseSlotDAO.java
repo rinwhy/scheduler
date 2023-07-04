@@ -2,7 +2,7 @@ package com.solvd.scheduler.dao;
 
 public interface iCourseSlotDAO<T> {
 
-    T getById(Integer coursSlotId);
+    T getById(Integer courseSlotId);
 
     T getByTeacherId(Integer teacherId);
 

@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS teacher_scheduler;
 
-
 USE teacher_scheduler;
 
 CREATE TABLE course_slot (
@@ -37,3 +36,4 @@ subjects_subject_id INT(11) NOT NULL,
 `name` VARCHAR(45),
 PRIMARY KEY(teacher_id, subjects_subject_id)
 );
+
