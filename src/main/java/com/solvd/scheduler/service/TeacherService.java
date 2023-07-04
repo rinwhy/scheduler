@@ -2,7 +2,8 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.Teacher;
-import com.solvd.scheduler.dao.iTeacherDAO;
+import com.solvd.scheduler.dao.ITeacherDAO;
+import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +21,8 @@ public class TeacherService {
             throw new IllegalArgumentException("Invalid teacher ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iTeacherDAO teacherDAO = session.getMapper(iTeacherDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
             Teacher teacher = (Teacher) teacherDAO.getById(teacherId);
             session.commit();
 
@@ -33,8 +34,8 @@ public class TeacherService {
     public void update(Teacher teacher){
         validateTeacher(teacher);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iTeacherDAO teacherDAO = session.getMapper(iTeacherDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
             teacherDAO.update(teacher);
             session.commit();
 
@@ -50,8 +51,8 @@ public class TeacherService {
 
         Teacher teacher = getById(teacherId);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iTeacherDAO teacherDAO = session.getMapper(iTeacherDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
 
             teacherDAO.delete(teacherId);
             session.commit();
@@ -64,8 +65,8 @@ public class TeacherService {
     public void insert(Teacher teacher){
         validateTeacher(teacher);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iTeacherDAO teacherDAO = session.getMapper(iTeacherDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
 
             teacherDAO.insert(teacher);
             session.commit();
@@ -76,8 +77,8 @@ public class TeacherService {
 
     public List<Teacher> getAll() {
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iTeacherDAO teacherDAO = session.getMapper(iTeacherDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
 
             List<Teacher> teachers = teacherDAO.getAll();
 

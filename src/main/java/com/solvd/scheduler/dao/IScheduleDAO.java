@@ -1,7 +1,7 @@
 package com.solvd.scheduler.dao;
 
 
-public interface iScheduleDAO<T> {
+public interface IScheduleDAO<T> {
 
     T getById(Integer scheduleId);
 

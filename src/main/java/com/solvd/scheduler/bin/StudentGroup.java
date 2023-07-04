@@ -6,6 +6,7 @@ public class StudentGroup {
 
     private final int id;
     private final Schedule schedule;
+    private int numStudents;
 
     public StudentGroup(int id) {
         this.id = id;
@@ -25,4 +26,11 @@ public class StudentGroup {
         SchedulePrinter.printStudentSchedule(this);
     }
 
+    public int getNumStudents() {
+        return numStudents;
+    }
+
+    public void setNumStudents(int numStudents) {
+        this.numStudents = numStudents;
+    }
 }

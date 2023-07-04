@@ -2,7 +2,7 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.CourseSlot;
-import com.solvd.scheduler.dao.iCourseSlotDAO;
+import com.solvd.scheduler.dao.ICourseSlotDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -21,8 +21,8 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid Teacher ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> courseLotsByTeacher = (List<CourseSlot>) courseSlotDAO.getSlotsByTeacherId(teacherId);
             session.commit();
 
@@ -37,8 +37,8 @@ public class CourseSlotService {
         }
 
         try (SqlSession session = sessionUtil.getSession().openSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
-            List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getByStudentId(studentGroupId);
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getSlotsByGroupId(studentGroupId);
             session.commit();
 
             logger.info("Successfully retrieved all Course Slots tied to Student Group " + studentGroupId);
@@ -52,8 +52,8 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid Course Slot ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             CourseSlot courseSlot = (CourseSlot) courseSlotDAO.getById(courseSlotId);
             session.commit();
 
@@ -65,8 +65,8 @@ public class CourseSlotService {
     public void update(CourseSlot courseSlot){
         validateCourseSlot(courseSlot);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.update(courseSlot);
             session.commit();
 
@@ -82,8 +82,8 @@ public class CourseSlotService {
 
         CourseSlot courseSlot = getById(courseSlotId);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
             courseSlotDAO.deleteById(courseSlotId);
             session.commit();
@@ -93,22 +93,9 @@ public class CourseSlotService {
 
     }
 
-    public void insert(CourseSlot courseSlot){
-        validateCourseSlot(courseSlot);
+    /*public List<CourseSlot> getAll() {
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
-
-            courseSlotDAO.insert(courseSlot);
-            session.commit();
-
-            logger.info("Successfully saved Course Slot with ID: " + courseSlot.getId());
-        }
-    }
-
-    public List<CourseSlot> getAll() {
-
-        try (SqlSession session = sessionUtil.getSession()) {
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
             iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
 
             List<CourseSlot> courseSlots = courseSlotDAO.getAll();
@@ -120,6 +107,19 @@ public class CourseSlotService {
 
             logger.info("Successfully retrieved all Course Slots in database");
             return courseSlots;
+        }
+    }*/
+
+    public void insert(CourseSlot courseSlot){
+        validateCourseSlot(courseSlot);
+
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+
+            courseSlotDAO.insert(courseSlot);
+            session.commit();
+
+            logger.info("Successfully saved Course Slot with ID: " + courseSlot.getId());
         }
     }
 

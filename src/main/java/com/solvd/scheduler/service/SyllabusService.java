@@ -2,7 +2,8 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.Syllabus;
-import com.solvd.scheduler.dao.iSyllabusDAO;
+import com.solvd.scheduler.dao.ISyllabusDAO;
+import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +21,8 @@ public class SyllabusService {
             throw new IllegalArgumentException("Invalid syllabus ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSyllabusDAO syllabusDAO = session.getMapper(iSyllabusDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
             Syllabus syllabus = (Syllabus) syllabusDAO.getById(studentGroupId);
             session.commit();
 
@@ -33,8 +34,8 @@ public class SyllabusService {
     public void update(Syllabus syllabus){
         validateSyllabus(syllabus);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSyllabusDAO syllabusDAO = session.getMapper(iSyllabusDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
             syllabusDAO.update(syllabus);
             session.commit();
 
@@ -50,8 +51,8 @@ public class SyllabusService {
 
         Syllabus syllabus = getById(studentGroupId);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSyllabusDAO syllabusDAO = session.getMapper(iSyllabusDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
 
             syllabusDAO.deleteById(studentGroupId);
             session.commit();
@@ -64,8 +65,8 @@ public class SyllabusService {
     public void insert(Syllabus syllabus){
         validateSyllabus(syllabus);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSyllabusDAO syllabusDAO = session.getMapper(iSyllabusDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
 
             syllabusDAO.insert(syllabus);
             session.commit();
@@ -74,10 +75,10 @@ public class SyllabusService {
         }
     }
 
-    public List<Syllabus> getAll() {
+    /*public List<Syllabus> getAll() {
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSyllabusDAO syllabusDAO = session.getMapper(iSyllabusDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
 
             List<Syllabus> syllabuses = syllabusDAO.getAll();
 
@@ -89,7 +90,7 @@ public class SyllabusService {
             logger.info("Successfully retrieved all Syllabuses in database");
             return syllabuses;
         }
-    }
+    }*/
 
     private void validateSyllabus(Syllabus syllabus) {
         Objects.requireNonNull(syllabus, "Cannot procede with a blank syllabus");

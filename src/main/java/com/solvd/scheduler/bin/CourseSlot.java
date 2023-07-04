@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 
 public class CourseSlot {
 
+    private int id;
     private int courseSlotId;
     private boolean slotOpen;
     private DayOfWeek  day;
@@ -81,5 +82,13 @@ public class CourseSlot {
                 ", subject=" + subject +
                 ", teacherAssigned=" + teacherAssigned +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

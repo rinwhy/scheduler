@@ -2,7 +2,7 @@ package com.solvd.scheduler.dao;
 
 import java.util.List;
 
-public interface iCourseSlotDAO<T> {
+public interface ICourseSlotDAO<T> {
 
     T getById(int courseSlotId);
 

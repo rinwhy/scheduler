@@ -2,13 +2,11 @@ package com.solvd.scheduler.service;
 import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.bin.Schedule;
 import com.solvd.scheduler.bin.School;
-import com.solvd.scheduler.dao.iCourseSlotDAO;
+import com.solvd.scheduler.dao.ICourseSlotDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 
-import java.time.DayOfWeek;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SchedulingService {
 
@@ -33,7 +31,7 @@ public Schedule getByTeacherId(int teacherId){
 private Schedule buildTeacherSchedule(int teacherId){
 
     try(SqlSession session = sessionUtil.getSession().openSession()){
-        iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
+        ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
 
         List<CourseSlot> slotsByTeacherId = courseSlotDAO.getSlotsByTeacherId(teacherId);

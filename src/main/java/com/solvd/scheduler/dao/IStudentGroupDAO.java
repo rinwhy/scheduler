@@ -1,8 +1,6 @@
 package com.solvd.scheduler.dao;
 
-import java.util.List;
-
-public interface iStudentGroupDAO<T> {
+public interface IStudentGroupDAO<T> {
 
 
     T getById(Integer studentId);

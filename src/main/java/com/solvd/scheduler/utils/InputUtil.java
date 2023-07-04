@@ -1,5 +1,6 @@
 package com.solvd.scheduler.utils;
 
+import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.bin.Subject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,10 +14,9 @@ public class InputUtil {
     public static List<Integer> getInputs(){
         List<Integer> inputs = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
-        int numTeach, numStudentsGroup, numPeriods;
+        int numTeach, numStudentsGroup;
+        int numPeriods = School.getTotalPeriods();
         int numSubjects = Subject.values().length;
-
-
         LOGGER.info("Please enter number of Teachers (Must be at least " + numSubjects
                 +" number of Teachers): ");
         numTeach = reader.nextInt();
@@ -25,15 +25,15 @@ public class InputUtil {
             numTeach = reader.nextInt();
         }
         inputs.add(numTeach);
-        LOGGER.info("Please enter number of Student Groups (Must be " + numTeach
-                + "-" + numTeach*4 + " number of Student Group): ");
+        LOGGER.info("Please enter number of Student Groups (Must be 1"
+                + "-" + numPeriods*2 + " number of Student Group): ");
 
         // Range of student Groups, from min to max
         // (  1 > (numOfPeriods*2)
 
 
         numStudentsGroup = reader.nextInt();
-        while (numStudentsGroup < numTeach || numStudentsGroup > numTeach*4){
+        while (numStudentsGroup < 1 || numStudentsGroup > numPeriods*2){
             LOGGER.info("The number inputted is invalid, Please reenter a valid number:" );
             numStudentsGroup = reader.nextInt();
         }

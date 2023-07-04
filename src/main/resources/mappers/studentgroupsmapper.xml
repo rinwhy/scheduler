@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.scheduler.dao.IStudentGroupDao">
+<mapper namespace="com.solvd.scheduler.dao.IStudentGroupDAO">
     <sql id="studentGroupBody">
         student_groups.group_id as student_group_id
     </sql>
     <select id="getById" resultMap="studentGroupResultMap">
         SELECT
         <include refid="studentGroupBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISyllabusDao.syllabusBody"/>
+        <include refid="com.solvd.scheduler.dao.ISyllabusDAO.syllabusBody"/>
         FROM student_groups
         JOIN Syllabus ON student_groups.group_id = Syllabus.student_groups_group_id
         WHERE student_groups.group_id = #{id}
@@ -21,12 +21,12 @@
         DELETE FROM student_groups WHERE group_id = #{id}
     </delete>
     <insert id="insert">
-        INSERT INTO student_groups (group_id)
-        VALUES (#{id})
+        INSERT INTO student_groups (num_students)
+        VALUES (#{numStudents})
     </insert>
     <resultMap id="studentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
         <id property="id" column="student_group_id"/>
-        <collection property="groupSchedule" resultMap="com.solvd.scheduler.dao.IScheduleDao.ScheduleResultMap"/>
-        <collection property="syllabus" resultMap="com.solvd.scheduler.dao.ISyllabusDao.SyllabusResultMap"/>
+        <collection property="groupSchedule" resultMap="com.solvd.scheduler.dao.IScheduleDAO.scheduleResultMap"/>
+        <collection property="syllabus" resultMap="com.solvd.scheduler.dao.ISyllabusDAO.syllabusResultMap"/>
     </resultMap>
 </mapper>

@@ -1,6 +1,6 @@
 package com.solvd.scheduler.dao;
 
-public interface iSyllabusDAO<T> {
+public interface ISyllabusDAO<T> {
 
     T getById(Integer syllabusId);
 

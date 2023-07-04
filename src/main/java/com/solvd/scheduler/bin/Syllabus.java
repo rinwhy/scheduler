@@ -1,5 +1,3 @@
-
-package com.solvd.scheduler.bin;public class Syllabus {
 package com.solvd.scheduler.bin;
 
 import java.util.ArrayList;

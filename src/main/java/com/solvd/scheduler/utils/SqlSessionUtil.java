@@ -13,7 +13,7 @@ public class SqlSessionUtil {
     private final static Logger LOGGER = LogManager.getLogger(SqlSessionUtil.class);
     private final static String MYBATIS_CONFIG = "mybatis_config.xml";
 
-    public static SqlSessionFactory getSession(){
+    public SqlSessionFactory getSession(){
         Properties props = PropertiesUtil.getProperties();
         try(InputStream stream = Resources.getResourceAsStream(MYBATIS_CONFIG);){
             return new SqlSessionFactoryBuilder().build(stream,props);

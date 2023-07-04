@@ -2,7 +2,8 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.Subject;
-import com.solvd.scheduler.dao.iSubjectDAO;
+import com.solvd.scheduler.dao.ISubjectDAO;
+import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +21,8 @@ public class SubjectService {
             throw new IllegalArgumentException("Invalid subject ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSubjectDAO subjectDAO = session.getMapper(iSubjectDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
             Subject subject = (Subject) subjectDAO.getById(subjectId);
             session.commit();
 
@@ -38,8 +39,8 @@ public class SubjectService {
 
         Subject subject = getById(subjectId);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSubjectDAO subjectDAO = session.getMapper(iSubjectDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
 
             subjectDAO.delete(subjectId);
             session.commit();
@@ -52,8 +53,8 @@ public class SubjectService {
     public void insert(Subject subject){
         validateSubject(subject);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSubjectDAO subjectDAO = session.getMapper(iSubjectDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
 
             subjectDAO.insert(subject);
             session.commit();
@@ -62,10 +63,10 @@ public class SubjectService {
         }
     }
 
-    public List<Subject> getAll() {
+    /*public List<Subject> getAll() {
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iSubjectDAO subjectDAO = session.getMapper(iSubjectDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
 
             List<Subject> subjects = subjectDAO.getAll();
 
@@ -77,7 +78,7 @@ public class SubjectService {
             logger.info("Successfully retrieved all subjects in database");
             return subjects;
         }
-    }
+    }*/
 
     private void validateSubject(Subject subject) {
         Objects.requireNonNull(subject, "Cannot procede with blank subject");

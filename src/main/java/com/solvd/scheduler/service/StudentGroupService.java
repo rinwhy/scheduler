@@ -2,7 +2,8 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.StudentGroup;
-import com.solvd.scheduler.dao.iStudentGroupDAO;
+import com.solvd.scheduler.dao.IStudentGroupDAO;
+import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,8 +34,8 @@ public class StudentGroupService {
             throw new IllegalArgumentException("Invalid Student Group ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iStudentGroupDAO studentGroupDAO = session.getMapper(iStudentGroupDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             StudentGroup studentGroup = (StudentGroup) studentGroupDAO.getById(studentGroupId);
             session.commit();
 
@@ -46,8 +47,8 @@ public class StudentGroupService {
     public void update(StudentGroup studentGroup){
         validateStudentGroup(studentGroup);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iStudentGroupDAO studentGroupDAO = session.getMapper(iStudentGroupDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             studentGroupDAO.update(studentGroup);
             session.commit();
 
@@ -61,10 +62,10 @@ public class StudentGroupService {
             throw new IllegalArgumentException("Invalid StudentGroup ID");
         }
 
-        StudentGroup studentGroup = getByStudentGroupId(studentGroupId);
+        StudentGroup studentGroup = getById(studentGroupId);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iStudentGroupDAO studentGroupDAO = session.getMapper(iStudentGroupDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.deleteById(studentGroupId);
             session.commit();
@@ -77,8 +78,8 @@ public class StudentGroupService {
     public void insert(StudentGroup studentGroup){
         validateStudentGroup(studentGroup);
 
-        try (SqlSession session = sessionUtil.getSession()) {
-            iStudentGroupDAO studentGroupDAO = session.getMapper(iStudentGroupDAO.class);
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.insert(studentGroup);
             session.commit();
