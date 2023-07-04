@@ -9,6 +9,7 @@ public class School {
 
     private static final int TOTAL_PERIODS = 4;
     private static final List<Teacher> teacherList = new ArrayList<>();
+    private static final List<Subject> syllabus = new ArrayList<>();
 
     public static int getTotalPeriods() {
         return TOTAL_PERIODS;
@@ -16,5 +17,9 @@ public class School {
 
     public static List<Teacher> getTeacherList() {
         return teacherList;
+    }
+
+    public static List<Subject> getSyllabus() {
+        return syllabus;
     }
 }
