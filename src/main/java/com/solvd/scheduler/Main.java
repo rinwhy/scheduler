@@ -30,7 +30,6 @@ public class Main {
 
 
 
-
         //create our teachers
         Teacher teacher1 = new Teacher(1, "Marie Phelps", Subject.MATH);
         Teacher teacher2 = new Teacher(2, "Zane Barlow", Subject.SCIENCE);
@@ -100,42 +99,45 @@ public class Main {
         ScheduleGenerator.generateMWFPattern(group8);
 
 
-        group1.printStudentSchedule();
+        group1.printSchedule();
         System.out.println("\n\n");
-        group2.printStudentSchedule();
+        group2.printSchedule();
         System.out.println("\n\n");
-        group3.printStudentSchedule();
+        group3.printSchedule();
         System.out.println("\n\n");
-        group4.printStudentSchedule();
+        group4.printSchedule();
         System.out.println("\n\n");
-        group5.printStudentSchedule();
+        group5.printSchedule();
         System.out.println("\n\n");
-        group6.printStudentSchedule();
+        group6.printSchedule();
         System.out.println("\n\n");
-        group7.printStudentSchedule();
+        group7.printSchedule();
         System.out.println("\n\n");
-        group8.printStudentSchedule();
+        group8.printSchedule();
         System.out.println("\n\n");
+
+
 
 
         System.out.println("\n_____________________________________________________________________________________________________________________\n");
 
-        teacher1.printTeachersSchedule();
+        teacher1.printSchedule();
         System.out.println("\n\n");
-        teacher2.printTeachersSchedule();
+        teacher2.printSchedule();
         System.out.println("\n\n");
-        teacher3.printTeachersSchedule();
+        teacher3.printSchedule();
         System.out.println("\n\n");
-        teacher4.printTeachersSchedule();
+        teacher4.printSchedule();
         System.out.println("\n\n");
-        teacher5.printTeachersSchedule();
+        teacher5.printSchedule();
         System.out.println("\n\n");
-        teacher6.printTeachersSchedule();
+        teacher6.printSchedule();
         System.out.println("\n\n");
-        teacher7.printTeachersSchedule();
+        teacher7.printSchedule();
         System.out.println("\n\n");
-        teacher8.printTeachersSchedule();
+        teacher8.printSchedule();
         System.out.println("\n\n");
+
 
     }
 }

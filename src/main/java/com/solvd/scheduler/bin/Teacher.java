@@ -1,43 +1,57 @@
 package com.solvd.scheduler.bin;
 
 
+import com.solvd.scheduler.utils.SchedulePrinter;
+
 public class Teacher {
 
     private int id;
     private String name;
-    private Subject teachingSubject;         // subject
-    private Schedule teacherSchedule;        // teachers schedule
+    private Subject subject;         // subject
+    private Schedule schedule;        // teachers schedule
 
 
     public Teacher() {
     }
 
-    public Teacher(int id, String name, Subject teachingSubject) {
+    public Teacher(int id, String name, Subject subject) {
         this.id = id;
         this.name = name;
-        this.teachingSubject = teachingSubject;
+        this.subject = subject;
 
-        teacherSchedule = new Schedule(School.getTotalPeriods());
+        schedule = new Schedule(School.getTotalPeriods());
     }
 
     public int getId() {
         return id;
     }
 
-    public Subject getTeachingSubject() {
-        return teachingSubject;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getName() {
         return name;
     }
 
-    public Schedule getTeacherSchedule() {
-        return teacherSchedule;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void printTeachersSchedule() {
-        teacherSchedule.printTeachersSchedule(this);
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void printSchedule() {
+        SchedulePrinter.printTeacherSchedule(this);
     }
 
 }

@@ -2,6 +2,7 @@ package com.solvd.scheduler.bin;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,63 +49,54 @@ public class Schedule {
         }
     }
 
-    public void printTeachersSchedule(Teacher teacher) {
-        //Heading 1
-        String[][] tableHeading1 = {{"Teachers Schedule"}};
-        printSchedule(tableHeading1);
-        //Heading 2
-        String[][] tableHeading2 = {{"Name:" + teacher.getName(), " ID: " + teacher.getId()}};
-        printSchedule(tableHeading2);
-        //heading 3, the days of the week
-        String[][] tableHeading3 = {{"Period", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}};
-        printSchedule(tableHeading3);
+    // returns the schedule values to be printed
+    public <T> String[][] getScheduleValues(Object obj) {
+        List<List<String>> dataList = new ArrayList<>();
 
-        for (int i = 1; i <= School.getTotalPeriods(); i++) {
-            String[][] tableData = {
-                    {Integer.toString(i),
-                            getSubjectName(DayOfWeek.MONDAY, i) + getGroupNum(DayOfWeek.MONDAY, i),
-                            getSubjectName(DayOfWeek.TUESDAY, i) + getGroupNum(DayOfWeek.TUESDAY, i),
-                            getSubjectName(DayOfWeek.WEDNESDAY, i) + getGroupNum(DayOfWeek.WEDNESDAY, i),
-                            getSubjectName(DayOfWeek.THURSDAY, i) + getGroupNum(DayOfWeek.THURSDAY, i),
-                            getSubjectName(DayOfWeek.FRIDAY, i) + getGroupNum(DayOfWeek.FRIDAY, i),
-                    }};
-            printSchedule(tableData);
-        }
-    }
-
-    public void printStudentsSchedule(StudentGroup studentGroup) {
-        //Heading 1
-        String[][] tableHeading1 = {{"Students Group Schedule"}};
-        printSchedule(tableHeading1);
-        //Heading 2
-        String[][] tableHeading2 = {{"Group ID: " + studentGroup.getId()}};
-        printSchedule(tableHeading2);
-        //heading 3, the days of the week
-        String[][] tableHeading3 = {{"Period", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}};
-        printSchedule(tableHeading3);
-
-        for (int i = 1; i <= School.getTotalPeriods(); i++) {
-            String[][] tableData = {
-                    {Integer.toString(i),
-                            getSubjectName(DayOfWeek.MONDAY, i) + getTeacherIDNum(DayOfWeek.MONDAY, i),
-                            getSubjectName(DayOfWeek.TUESDAY, i) + getTeacherIDNum(DayOfWeek.TUESDAY, i),
-                            getSubjectName(DayOfWeek.WEDNESDAY, i) + getTeacherIDNum(DayOfWeek.WEDNESDAY, i),
-                            getSubjectName(DayOfWeek.THURSDAY, i) + getTeacherIDNum(DayOfWeek.THURSDAY, i),
-                            getSubjectName(DayOfWeek.FRIDAY, i) + getTeacherIDNum(DayOfWeek.FRIDAY, i),
-                    }};
-            printSchedule(tableData);
-        }
-    }
-
-    public void printSchedule(String[][] tableData) {
-        int numCols = tableData[0].length;
-
-        for (String[] table : tableData) {
-            for (int j = 0; j < numCols; j++) {
-                System.out.printf("%-20s", table[j]);
+        if (obj instanceof Teacher) {
+            for (int i = 1; i <= School.getTotalPeriods(); i++) {
+                String[] tableRow =
+                        {
+                                Integer.toString(i),
+                                getSubjectName(DayOfWeek.MONDAY, i) + getGroupNum(DayOfWeek.MONDAY, i),
+                                getSubjectName(DayOfWeek.TUESDAY, i) + getGroupNum(DayOfWeek.TUESDAY, i),
+                                getSubjectName(DayOfWeek.WEDNESDAY, i) + getGroupNum(DayOfWeek.WEDNESDAY, i),
+                                getSubjectName(DayOfWeek.THURSDAY, i) + getGroupNum(DayOfWeek.THURSDAY, i),
+                                getSubjectName(DayOfWeek.FRIDAY, i) + getGroupNum(DayOfWeek.FRIDAY, i)
+                        };
+                dataList.add(Arrays.asList(tableRow));
             }
-            System.out.println();
+        } else if (obj instanceof StudentGroup) {
+            for (int i = 1; i <= School.getTotalPeriods(); i++) {
+                String[] tableRow =
+                        {
+                                Integer.toString(i),
+                                getSubjectName(DayOfWeek.MONDAY, i) + getTeacherIDNum(DayOfWeek.MONDAY, i),
+                                getSubjectName(DayOfWeek.TUESDAY, i) + getTeacherIDNum(DayOfWeek.TUESDAY, i),
+                                getSubjectName(DayOfWeek.WEDNESDAY, i) + getTeacherIDNum(DayOfWeek.WEDNESDAY, i),
+                                getSubjectName(DayOfWeek.THURSDAY, i) + getTeacherIDNum(DayOfWeek.THURSDAY, i),
+                                getSubjectName(DayOfWeek.FRIDAY, i) + getTeacherIDNum(DayOfWeek.FRIDAY, i)
+                        };
+                dataList.add(Arrays.asList(tableRow));
+            }
         }
+        return listToArrayTwoDim(dataList);
+    }
+
+
+    private String[][] listToArrayTwoDim(List<List<String>> list) {
+
+        int numRows = list.size();
+        int numColumns = list.get(0).size();
+        String[][] array = new String[numRows][numColumns];
+
+        for (int i = 0; i < numRows; i++) {
+            List<String> row = list.get(i);
+            for (int j = 0; j < numColumns; j++) {
+                array[i][j] = String.valueOf(row.get(j));
+            }
+        }
+        return array;
     }
 
     private String getSubjectName(DayOfWeek day, int period) {
@@ -114,8 +106,7 @@ public class Schedule {
                     .filter(courseSlot -> courseSlot.getPeriod() == period)
                     .collect(Collectors.toList())
                     .get(0).getSubject().getSubjectName();
-        }
-        else return "------";
+        } else return "------";
     }
 
     private String getGroupNum(DayOfWeek day, int period) {
