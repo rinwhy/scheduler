@@ -1,4 +1,4 @@
-package utils;
+package com.solvd.scheduler.utils;
 
 import com.github.javafaker.Faker;
 import com.solvd.scheduler.bin.Subject;
@@ -9,10 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 public class TeacherBuilder {
@@ -25,9 +22,10 @@ public class TeacherBuilder {
             Teacher teach = new Teacher();
             Faker faker = new Faker();
             HashMap<Integer, String> ratings = new HashMap<>();
-            teach.setTeachingSubject(subjects.get(index % subjects.size()));
+            teach.setSubject(subjects.get(index % subjects.size()));
             teach.setName(faker.name().fullName());
-            teach.setId(index+1);
+            //the id should be auto incremented in sql table
+            //            teach.setId(index+1);
             teachers.add(teach);
         });
         return teachers;

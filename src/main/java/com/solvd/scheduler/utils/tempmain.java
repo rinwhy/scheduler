@@ -1,10 +1,5 @@
 package com.solvd.scheduler.utils;
 
-import com.solvd.scheduler.bin.Teacher;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class tempmain {
     public static void main(String[] args) {
         /*List<Integer> temp= InputUtil.getInputs();
@@ -25,6 +20,6 @@ public class tempmain {
                 {"9:30AM - 12PM", "", "History","Math", "English", ""},
 
         };
-        ScheduleOutputter.printSchedule(test);
+//        SchedulePrinter.printSchedule(test);
     }
 }
