@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="db.properties" />
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -15,6 +16,10 @@
         </environment>
     </environments>
 <mappers>
-
+    <mapper resource="mappers/courseslotmapper.xml" />
+    <mapper resource="mappers/studentgroupsmapper.xml" />
+    <mapper resource="mappers/subjectmapper.xml" />
+    <mapper resource="mappers/syllabusmapper.xml" />
+    <mapper resource="mappers/teachermapper.xml" />
 </mappers>
 </configuration>

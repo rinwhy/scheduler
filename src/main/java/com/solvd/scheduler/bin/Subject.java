@@ -26,4 +26,12 @@ public enum Subject {
     public int getId(){
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "subjectName='" + subjectName + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
