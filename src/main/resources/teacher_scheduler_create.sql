@@ -26,7 +26,7 @@ PRIMARY KEY (student_groups_group_id, subjects_subject_id)
 );
 
 CREATE TABLE subjects (
-subject_id INT(11) PRIMARY KEY NOT NULL,
+subject_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 subject_name VARCHAR(45)
 );
 

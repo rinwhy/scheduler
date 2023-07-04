@@ -4,21 +4,22 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.scheduler.dao.ISubjectDAO">
     <sql id="subjectBody">
-        subjects.subject_id as id,
         subjects.subject_name as name
     </sql>
-    <select id="getById" resultMap="subjectResultMap">
+
+    <select id="getById" parameterType="Int" resultMap="subjectResultMap">
         SELECT
-        <include refid="subjectBody"/>,
-        FROM subject
-        WHERE subject.subject_id = #{id}
+        <include refid="subjectBody"/>
+        FROM subjects
+        WHERE subject_id = #{id}
     </select>
+
     <insert id="insert">
-        INSERT INTO subjects (subject_id, subject_name)
-        VALUES (#{id}, #{subjectName})
+        INSERT INTO subjects (subject_name)
+        VALUES (#{subjectName})
     </insert>
+
     <resultMap id="subjectResultMap" type="com.solvd.scheduler.bin.Subject">
-        <id property="id" column="id"/>
         <result property="name" column="name"/>
     </resultMap>
 </mapper>

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IStudentDAO<T> {
 
-    T getById(Integer studentId);
+    T getById(int studentId);
 
     void insert(T student);
 

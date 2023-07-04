@@ -2,7 +2,7 @@ package com.solvd.scheduler.dao;
 
 public interface ISubjectDAO<T> {
 
-    T getById(Integer subjectId);
+    T getById(int subjectId);
 
     void insert(T subject);
 

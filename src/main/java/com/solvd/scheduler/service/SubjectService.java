@@ -26,7 +26,7 @@ public class SubjectService {
             Subject subject = (Subject) subjectDAO.getById(subjectId);
             session.commit();
 
-            logger.info("Successfully retrieved Subject " + subject.getSubjectName());
+            logger.info("Successfully retrieved Subject " + subject.name());
             return subject;
         }
     }
@@ -45,7 +45,7 @@ public class SubjectService {
             subjectDAO.delete(subjectId);
             session.commit();
 
-            logger.info("Successfully deleted Subject " + subject.getSubjectName());
+            logger.info("Successfully deleted Subject " + subject.name());
         }
 
     }
@@ -59,7 +59,7 @@ public class SubjectService {
             subjectDAO.insert(subject);
             session.commit();
 
-            logger.info("Successfully saved Subject " + subject.getSubjectName());
+            logger.info("Successfully saved Subject " + subject.name());
         }
     }
 
@@ -83,9 +83,9 @@ public class SubjectService {
     private void validateSubject(Subject subject) {
         Objects.requireNonNull(subject, "Cannot procede with blank subject");
 
-        if (Objects.isNull(getById(subject.getId()))) {
-            throw new RuntimeException("Subject is not in the database, please insert into the database");
-        }
+//        if (Objects.isNull(getById(subject.getId()))) {
+//            throw new RuntimeException("Subject is not in the database, please insert into the database");
+//        }
     }
 
 
