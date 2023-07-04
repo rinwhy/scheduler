@@ -44,15 +44,15 @@ public class Main {
 
 
         //create our groups
-        StudentGroup group1 = new StudentGroup(1);
-        StudentGroup group2 = new StudentGroup(2);
-        StudentGroup group3 = new StudentGroup(3);
-        StudentGroup group4 = new StudentGroup(4);
-        StudentGroup group5 = new StudentGroup(5);
-        StudentGroup group6 = new StudentGroup(6);
-        StudentGroup group7 = new StudentGroup(7);
-        StudentGroup group8 = new StudentGroup(8);
-        StudentGroup group9 = new StudentGroup(9);
+        StudentGroup group1 = new StudentGroup('A', 20);
+        StudentGroup group2 = new StudentGroup('B', 20);
+        StudentGroup group3 = new StudentGroup('C', 20);
+        StudentGroup group4 = new StudentGroup('D', 20);
+        StudentGroup group5 = new StudentGroup('E', 20);
+        StudentGroup group6 = new StudentGroup('F', 20);
+        StudentGroup group7 = new StudentGroup('G', 20);
+        StudentGroup group8 = new StudentGroup('H', 20);
+        StudentGroup group9 = new StudentGroup('I', 20);
 
 //        //add the subjects to a groups syllabus
 //        group1.setSyllabus(subjects);

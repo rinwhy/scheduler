@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface IStudentDAO<T> {
 
-    T getById(Integer studentId);
+    T getById(int studentId);
 
     void insert(T student);
 
     void update(T student);
 
-    void delete(Integer studentId);
+    void deleteById(int studentId);
 
     List<T> getAll();
 }

@@ -1,13 +1,19 @@
 package com.solvd.scheduler.dao;
 
-public interface IStudentGroupDAO<T> {
+import com.solvd.scheduler.bin.StudentGroup;
+
+import java.util.List;
+
+public interface IStudentGroupDAO {
 
 
-    T getById(Integer studentId);
+    StudentGroup getById(int studentId);
 
-    void insert(T student);
+    List<StudentGroup> getAll();
 
-    void update(T student);
+    void insert(StudentGroup studentGroup);
 
-    void deleteById(Integer studentId);
+    void update(StudentGroup studentGroup);
+
+    void deleteById(int studentId);
 }

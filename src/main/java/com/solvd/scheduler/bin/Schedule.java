@@ -105,7 +105,9 @@ public class Schedule {
             return scheduleMap.get(day).stream()
                     .filter(courseSlot -> courseSlot.getPeriod() == period)
                     .collect(Collectors.toList())
-                    .get(0).getSubject().getSubjectName();
+                    .get(0).getSubject().name();
+
+//                    .get(0).getSubject().getSubjectName();
         } else return "------";
     }
 

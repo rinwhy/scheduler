@@ -3,34 +3,41 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.scheduler.dao.ITeacherDAO">
+
     <sql id="teacherBody">
-        teachers.teacher_id as teacher_id
+        teachers.teacher_id as teacher_id,
         teachers.name as teacher_name,
         teachers.subjects_subject_id as subject_id
     </sql>
-    <select id="getById" resultMap="teacherResultMap">
-        SELECT
-        <include refid="teacherBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>
+
+    <select id="getById" parameterType="int" resultMap="teacherResultMap">
+        SELECT *
         FROM teachers
-        JOIN Subjects ON teachers.subjects_subject_id = Subjects.subject_id
-        WHERE teachers.teacher_id = #{id}
+        WHERE id = #{id};
     </select>
+
+    <select id="getAll" resultMap="teacherResultMap" >
+        SELECT * FROM Teachers;
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.scheduler.bin.Teacher">
+        INSERT INTO Teachers(`name`, subject_name)
+        VALUES (#{name}, #{subject})
+    </insert>
+
     <update id="update">
         UPDATE teachers
-        SET name=#{name}, subjects_subject_id=#{teachingSubject.id}
-        WHERE teacher_id=#{id}
+        SET name=#{name}, subject_name=#{subject}
+        WHERE id=#{id}
     </update>
+
     <delete id="deleteById">
-        DELETE FROM teachers WHERE teacher_id = #{id}
+        DELETE FROM teachers WHERE id = #{id}
     </delete>
-    <insert id="insert">
-        INSERT INTO teachers ( name, subjects_subject_id)
-        VALUES (#{name}, #{teachingSubject.id})
-    </insert>
+
     <resultMap id="teacherResultMap" type="com.solvd.scheduler.bin.Teacher">
-        <id property="id" column="teacher_id"/>
-        <result property="name" column="teacher_name"/>
-        <collection property="teachingSubject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.SubjectResultMap"/>
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.foreignSubjectResultMap"/>
     </resultMap>
 </mapper>

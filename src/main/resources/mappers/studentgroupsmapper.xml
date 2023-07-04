@@ -6,27 +6,37 @@
     <sql id="studentGroupBody">
         student_groups.group_id as student_group_id
     </sql>
-    <select id="getById" resultMap="studentGroupResultMap">
-        SELECT
-        <include refid="studentGroupBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISyllabusDAO.syllabusBody"/>
-        FROM student_groups
-        JOIN Syllabus ON student_groups.group_id = Syllabus.student_groups_group_id
-        WHERE student_groups.group_id = #{id}
-    </select>
-    <update id="update">
 
-    </update>
-    <delete id="deleteById">
-        DELETE FROM student_groups WHERE group_id = #{id}
-    </delete>
+
+    <select id="getById" resultMap="studentGroupResultMap">
+        SELECT *
+        FROM student_groups
+        WHERE id = #{id};
+    </select>
+
+    <select id="getAll" resultMap="studentGroupResultMap">
+        SELECT * FROM student_groups;
+    </select>
+
     <insert id="insert">
-        INSERT INTO student_groups (num_students)
-        VALUES (#{numStudents})
+        INSERT INTO student_groups (letter, num_students)
+        VALUES (#{letter}, #{numStudents});
     </insert>
+
+    <update id="update">
+        UPDATE student_groups
+        SET letter=#{letter}, num_students =#{numStudents}
+        WHERE id=#{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM student_groups WHERE group_id = #{id};
+    </delete>
+
+
     <resultMap id="studentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
-        <id property="id" column="student_group_id"/>
-        <collection property="groupSchedule" resultMap="com.solvd.scheduler.dao.IScheduleDAO.scheduleResultMap"/>
-        <collection property="syllabus" resultMap="com.solvd.scheduler.dao.ISyllabusDAO.syllabusResultMap"/>
+        <id property="id" column="id"/>
+        <result property="letter" column="letter"/>
+        <result property="numStudents" column="num_students"/>
     </resultMap>
 </mapper>

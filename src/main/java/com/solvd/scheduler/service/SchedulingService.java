@@ -30,7 +30,7 @@ public Schedule getByTeacherId(int teacherId){
 
 private Schedule buildTeacherSchedule(int teacherId){
 
-    try(SqlSession session = sessionUtil.getSession().openSession()){
+    try(SqlSession session = sessionUtil.getSessionFactory().openSession()){
         ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
 

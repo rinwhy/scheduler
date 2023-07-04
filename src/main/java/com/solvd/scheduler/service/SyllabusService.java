@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Objects;
 
 public class SyllabusService {
@@ -21,7 +20,7 @@ public class SyllabusService {
             throw new IllegalArgumentException("Invalid syllabus ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
             Syllabus syllabus = (Syllabus) syllabusDAO.getById(studentGroupId);
             session.commit();
@@ -34,7 +33,7 @@ public class SyllabusService {
     public void update(Syllabus syllabus){
         validateSyllabus(syllabus);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
             syllabusDAO.update(syllabus);
             session.commit();
@@ -51,7 +50,7 @@ public class SyllabusService {
 
         Syllabus syllabus = getById(studentGroupId);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
 
             syllabusDAO.deleteById(studentGroupId);
@@ -65,7 +64,7 @@ public class SyllabusService {
     public void insert(Syllabus syllabus){
         validateSyllabus(syllabus);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
 
             syllabusDAO.insert(syllabus);

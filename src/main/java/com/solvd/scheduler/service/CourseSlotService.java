@@ -21,7 +21,7 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid Teacher ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> courseLotsByTeacher = (List<CourseSlot>) courseSlotDAO.getSlotsByTeacherId(teacherId);
             session.commit();
@@ -36,7 +36,7 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid studentGroupId ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getSlotsByGroupId(studentGroupId);
             session.commit();
@@ -52,7 +52,7 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid Course Slot ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             CourseSlot courseSlot = (CourseSlot) courseSlotDAO.getById(courseSlotId);
             session.commit();
@@ -65,7 +65,7 @@ public class CourseSlotService {
     public void update(CourseSlot courseSlot){
         validateCourseSlot(courseSlot);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.update(courseSlot);
             session.commit();
@@ -82,7 +82,7 @@ public class CourseSlotService {
 
         CourseSlot courseSlot = getById(courseSlotId);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
             courseSlotDAO.deleteById(courseSlotId);
@@ -113,7 +113,7 @@ public class CourseSlotService {
     public void insert(CourseSlot courseSlot){
         validateCourseSlot(courseSlot);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
             courseSlotDAO.insert(courseSlot);

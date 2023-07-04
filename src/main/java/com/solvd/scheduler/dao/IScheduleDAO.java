@@ -3,12 +3,12 @@ package com.solvd.scheduler.dao;
 
 public interface IScheduleDAO<T> {
 
-    T getById(Integer scheduleId);
+    T getById(int scheduleId);
 
     void insert(T schedule);
 
     void update(T schedule);
 
-    void delete(Integer scheduleId);
+    void deleteById(int scheduleId);
 
 }
