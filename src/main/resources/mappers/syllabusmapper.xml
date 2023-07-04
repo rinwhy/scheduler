@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.scheduler.dao.IsyllabusDao">
+<mapper namespace="com.solvd.scheduler.dao.IsyllabusDAO">
     <sql id="syllabusBody">
         syllabus.student_groups_group_id as student_id,
         syllabus.subjects_subject_id as subject_id,
@@ -11,7 +11,7 @@
     <select id="getById" resultMap="syllabusResultMap">
         SELECT
         <include refid="syllabusBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISubjectDao.subjectBody"/>
+        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>
         FROM Syllabus
         JOIN Subjects ON Syllabus.subjects_subject_id = Subjects.subject_id
         WHERE student_groups_group_id = #{studentGroupId}
@@ -22,7 +22,8 @@
         WHERE student_groups_group_id = #{studentGroupId}
     </update>
     <delete id="deleteById">
-        DELETE FROM Syllabus WHERE student_groups_group_id = #{studentGroupId}
+        DELETE FROM Syllabus
+        WHERE student_groups_group_id = #{studentGroupId}
         AND subjects_subject_id = #{subjectId}
     </delete>
     <insert id="insert">
@@ -33,6 +34,6 @@
         <result property="studentGroupId" column="syllabus_id"/>
         <result property="subjectId" column="syllabus_name"/>
         <result property="major" column="syllabus_major"/>
-        <collection property="syllabus" resultMap="com.solvd.scheduler.dao.ISubjectDao.SubjectResultMap"/>
+        <collection property="syllabus" resultMap="com.solvd.scheduler.dao.ISubjectDAO.subjectResultMap"/>
     </resultMap>
 </mapper>

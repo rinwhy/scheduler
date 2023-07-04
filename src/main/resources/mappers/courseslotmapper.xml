@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.scheduler.dao.ICourseSlotDao">
-    <sql id="CourseSlotBody">
+<mapper namespace="com.solvd.scheduler.dao.ICourseSlotDAO">
+    <sql id="courseSlotBody">
         CourseSlot.course_slot_id as CourseSlot_id
         CourseSlot.period as period,
         CourseSlot.subjects_subject_id as subject_id
@@ -11,24 +11,24 @@
     </sql>
     <sql id="getQuery">
         SELECT
-        <include refid="CourseSlotBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISubjectDao.subjectBody"/>
-        <include refid="com.solvd.scheduler.dao.ITeacherDao.teacherBody"/>
-        <include refid="com.solvd.scheduler.dao.IStudentGroupDao.studentGroupBody"/>
+        <include refid="courseSlotBody"/>,
+        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>
+        <include refid="com.solvd.scheduler.dao.ITeacherDAO.teacherBody"/>
+        <include refid="com.solvd.scheduler.dao.IStudentGroupDAO.studentGroupBody"/>
         FROM CourseSlot
         JOIN Teachers ON Teachers.teacher_id = CourseSlot.teachers_teacher_id
         JOIN Student_Groups ON Student_Groups.group_id = CourseSlot.student_group_id
         JOIN Subjects ON CourseSlot.subject_id = Subjects.subject_id
     </sql>
-    <select id="getById" resultMap="CourseSlotResultMap">
+    <select id="getById" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.course_slot_id = #{id}
     </select>
-    <select id="getByTeacherId" resultMap="CourseSlotResultMap">
+    <select id="getSlotsByTeacherId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.teachers_teacher_id = #{teacherAssigned.id}
     </select>
-    <select id="getByStudentId" resultMap="CourseSlotResultMap">
+    <select id="getSlotsByGroupId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.student_group_id = #{studentGroup.id}
     </select>
@@ -44,12 +44,12 @@
         INSERT INTO CourseSlots (course_slot_id, period, subjects_subject_id)
         VALUES (#{id}, #{period}, #{subject.id})
     </insert>
-    <resultMap id="CourseSlotResultMap" type="com.solvd.scheduler.bin.CourseSlot">
+    <resultMap id="courseSlotResultMap" type="com.solvd.scheduler.bin.CourseSlot">
         <id property="id" column="CourseSlot_id"/>
         <result property="period" column="period"/>
         <result property="day" column="day"/>
-        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDao.SubjectResultMap"/>
-        <collection property="teacherAssigned" resultMap="com.solvd.scheduler.dao.ITeacherDao.TeacherResultMap"/>
-        <collection property="studentGroup" resultMap="com.solvd.scheduler.dao.IStudentGroupDao.StudentGroupResultMap"/>
+        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.subjectResultMap"/>
+        <collection property="teacherAssigned" resultMap="com.solvd.scheduler.dao.ITeacherDAO.teacherResultMap"/>
+        <collection property="studentGroup" resultMap="com.solvd.scheduler.dao.IStudentGroupDAO.studentGroupResultMap"/>
     </resultMap>
 </mapper>

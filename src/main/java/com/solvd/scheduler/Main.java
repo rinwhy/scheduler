@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         //input our subjects that need to be taught
         List<Subject> subjects = new ArrayList<>();
         subjects.add(Subject.MATH);
@@ -24,6 +25,9 @@ public class Main {
         subjects.add(Subject.TECHNOLOGY);
         subjects.add(Subject.ART);
         subjects.add(Subject.PHYSICAL_EDUCATION);
+        School.getSyllabus().addAll(subjects);
+
+
 
 
 
@@ -36,7 +40,6 @@ public class Main {
         Teacher teacher6 = new Teacher(6, "Sidney Robertson", Subject.TECHNOLOGY);
         Teacher teacher7 = new Teacher(7, "Colin Giles", Subject.ART);
         Teacher teacher8 = new Teacher(8, "Shakira Stone", Subject.PHYSICAL_EDUCATION);
-
         Collections.addAll(School.getTeacherList(), teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8);
 
 
@@ -51,16 +54,16 @@ public class Main {
         StudentGroup group8 = new StudentGroup(8);
         StudentGroup group9 = new StudentGroup(9);
 
-        //add the subjects to a groups syllabus
-        group1.setSyllabus(subjects);
-        group2.setSyllabus(subjects);
-        group3.setSyllabus(subjects);
-        group4.setSyllabus(subjects);
-        group5.setSyllabus(subjects);
-        group6.setSyllabus(subjects);
-        group7.setSyllabus(subjects);
-        group8.setSyllabus(subjects);
-        group9.setSyllabus(subjects);
+//        //add the subjects to a groups syllabus
+//        group1.setSyllabus(subjects);
+//        group2.setSyllabus(subjects);
+//        group3.setSyllabus(subjects);
+//        group4.setSyllabus(subjects);
+//        group5.setSyllabus(subjects);
+//        group6.setSyllabus(subjects);
+//        group7.setSyllabus(subjects);
+//        group8.setSyllabus(subjects);
+//        group9.setSyllabus(subjects);
 
 
 //        //generate the single schedule
@@ -95,45 +98,47 @@ public class Main {
         ScheduleGenerator.generateMWFPattern(group6);
         ScheduleGenerator.generateMWFPattern(group7);
         ScheduleGenerator.generateMWFPattern(group8);
-//        ScheduleGenerator.generateMWFPattern(group9);
 
 
-        group1.printStudentSchedule();
+        group1.printSchedule();
         System.out.println("\n\n");
-        group2.printStudentSchedule();
+        group2.printSchedule();
         System.out.println("\n\n");
-        group3.printStudentSchedule();
+        group3.printSchedule();
         System.out.println("\n\n");
-        group4.printStudentSchedule();
+        group4.printSchedule();
         System.out.println("\n\n");
-        group5.printStudentSchedule();
+        group5.printSchedule();
         System.out.println("\n\n");
-        group6.printStudentSchedule();
+        group6.printSchedule();
         System.out.println("\n\n");
-        group7.printStudentSchedule();
+        group7.printSchedule();
         System.out.println("\n\n");
-        group8.printStudentSchedule();
+        group8.printSchedule();
         System.out.println("\n\n");
+
+
 
 
         System.out.println("\n_____________________________________________________________________________________________________________________\n");
 
-        teacher1.printTeachersSchedule();
+        teacher1.printSchedule();
         System.out.println("\n\n");
-        teacher2.printTeachersSchedule();
+        teacher2.printSchedule();
         System.out.println("\n\n");
-        teacher3.printTeachersSchedule();
+        teacher3.printSchedule();
         System.out.println("\n\n");
-        teacher4.printTeachersSchedule();
+        teacher4.printSchedule();
         System.out.println("\n\n");
-        teacher5.printTeachersSchedule();
+        teacher5.printSchedule();
         System.out.println("\n\n");
-        teacher6.printTeachersSchedule();
+        teacher6.printSchedule();
         System.out.println("\n\n");
-        teacher7.printTeachersSchedule();
+        teacher7.printSchedule();
         System.out.println("\n\n");
-        teacher8.printTeachersSchedule();
+        teacher8.printSchedule();
         System.out.println("\n\n");
+
 
     }
 }

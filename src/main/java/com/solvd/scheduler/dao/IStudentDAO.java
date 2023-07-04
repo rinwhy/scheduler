@@ -2,9 +2,9 @@ package com.solvd.scheduler.dao;
 
 import java.util.List;
 
-public interface iStudent<T> {
+public interface IStudentDAO<T> {
 
-    <T> T getById(Integer studentId);
+    T getById(Integer studentId);
 
     void insert(T student);
 

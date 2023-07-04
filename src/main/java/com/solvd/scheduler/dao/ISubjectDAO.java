@@ -1,12 +1,12 @@
 package com.solvd.scheduler.dao;
 
-public interface iSubject<T> {
+public interface ISubjectDAO<T> {
 
     T getById(Integer subjectId);
 
     void insert(T subject);
 
-    void save(T subject);
+    void update(T subject);
 
     void delete(Integer subjectId);
 }

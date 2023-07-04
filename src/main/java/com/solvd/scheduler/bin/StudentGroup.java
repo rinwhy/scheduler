@@ -1,16 +1,16 @@
 package com.solvd.scheduler.bin;
 
-import java.util.List;
+import com.solvd.scheduler.utils.SchedulePrinter;
 
 public class StudentGroup {
 
     private final int id;
-    private final Schedule groupSchedule;
-    private List<Subject> syllabus;
+    private final Schedule schedule;
+    private int numStudents;
 
     public StudentGroup(int id) {
         this.id = id;
-        groupSchedule = new Schedule(School.getTotalPeriods());
+        schedule = new Schedule(School.getTotalPeriods());
     }
 
 
@@ -18,20 +18,19 @@ public class StudentGroup {
         return id;
     }
 
-    public List<Subject> getSyllabus() {
-        return syllabus;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setSyllabus(List<Subject> syllabus) {
-        this.syllabus = syllabus;
+    public void printSchedule() {
+        SchedulePrinter.printStudentSchedule(this);
     }
 
-    public Schedule getGroupSchedule() {
-        return groupSchedule;
+    public int getNumStudents() {
+        return numStudents;
     }
 
-    public void printStudentSchedule() {
-        groupSchedule.printStudentsSchedule(this);
+    public void setNumStudents(int numStudents) {
+        this.numStudents = numStudents;
     }
-
 }

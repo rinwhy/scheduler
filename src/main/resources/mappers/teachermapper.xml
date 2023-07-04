@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.scheduler.dao.ITeacherDao">
+<mapper namespace="com.solvd.scheduler.dao.ITeacherDAO">
     <sql id="teacherBody">
         teachers.teacher_id as teacher_id
         teachers.name as teacher_name,
@@ -11,7 +11,7 @@
     <select id="getById" resultMap="teacherResultMap">
         SELECT
         <include refid="teacherBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISubjectDao.subjectBody"/>
+        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>
         FROM teachers
         JOIN Subjects ON teachers.subjects_subject_id = Subjects.subject_id
         WHERE teachers.teacher_id = #{id}
@@ -25,12 +25,12 @@
         DELETE FROM teachers WHERE teacher_id = #{id}
     </delete>
     <insert id="insert">
-        INSERT INTO teachers (teacher_id, name, subjects_subject_id)
-        VALUES (#{id}, #{name}, #{teachingSubject.id})
+        INSERT INTO teachers ( name, subjects_subject_id)
+        VALUES (#{name}, #{teachingSubject.id})
     </insert>
     <resultMap id="teacherResultMap" type="com.solvd.scheduler.bin.Teacher">
         <id property="id" column="teacher_id"/>
         <result property="name" column="teacher_name"/>
-        <collection property="teachingSubject" resultMap="com.solvd.scheduler.dao.ISubjectDao.SubjectResultMap"/>
+        <collection property="teachingSubject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.SubjectResultMap"/>
     </resultMap>
 </mapper>

@@ -1,7 +1,7 @@
 package com.solvd.scheduler.dao;
 
 
-public interface iSchedule<T> {
+public interface IScheduleDAO<T> {
 
     T getById(Integer scheduleId);
 
@@ -9,6 +9,6 @@ public interface iSchedule<T> {
 
     void update(T schedule);
 
-    void delete(Integer contractorID);
+    void delete(Integer scheduleId);
 
 }
