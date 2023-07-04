@@ -5,7 +5,7 @@ import java.util.List;
 public interface iStudentGroupDAO<T> {
 
 
-    <T> T getById(Integer studentId);
+    T getById(Integer studentId);
 
     void insert(T student);
 

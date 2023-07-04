@@ -3,6 +3,7 @@ package com.solvd.scheduler.service;
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.dao.iCourseSlotDAO;
+import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,7 @@ public class CourseSlotService {
 
         try (SqlSession session = sessionUtil.getSession()) {
             iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
-            List<CourseSlot> courseLotsByTeacher = (List<CourseSlot>) courseSlotDAO.getByTeacherId(teacherId);
+            List<CourseSlot> courseLotsByTeacher = (List<CourseSlot>) courseSlotDAO.getSlotsByTeacherId(teacherId);
             session.commit();
 
             logger.info("Successfully retrieved all Course Slots tied to Teacher " + new TeacherService().getById(teacherId).getName());
@@ -35,7 +36,7 @@ public class CourseSlotService {
             throw new IllegalArgumentException("Invalid studentGroupId ID");
         }
 
-        try (SqlSession session = sessionUtil.getSession()) {
+        try (SqlSession session = sessionUtil.getSession().openSession()) {
             iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
             List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getByStudentId(studentGroupId);
             session.commit();

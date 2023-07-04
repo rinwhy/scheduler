@@ -24,11 +24,11 @@
         <include refid="getQuery"/>
         WHERE CourseSlot.course_slot_id = #{id}
     </select>
-    <select id="getByTeacherId" resultMap="CourseSlotResultMap">
+    <select id="getSlotsByTeacherId" resultMap="CourseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.teachers_teacher_id = #{teacherAssigned.id}
     </select>
-    <select id="getByStudentId" resultMap="CourseSlotResultMap">
+    <select id="getSlotsByGroupId" resultMap="CourseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.student_group_id = #{studentGroup.id}
     </select>

@@ -15,6 +15,8 @@ public class InputUtil {
         Scanner reader = new Scanner(System.in);
         int numTeach, numStudentsGroup, numPeriods;
         int numSubjects = Subject.values().length;
+
+
         LOGGER.info("Please enter number of Teachers (Must be at least " + numSubjects
                 +" number of Teachers): ");
         numTeach = reader.nextInt();
@@ -25,6 +27,11 @@ public class InputUtil {
         inputs.add(numTeach);
         LOGGER.info("Please enter number of Student Groups (Must be " + numTeach
                 + "-" + numTeach*4 + " number of Student Group): ");
+
+        // Range of student Groups, from min to max
+        // (  1 > (numOfPeriods*2)
+
+
         numStudentsGroup = reader.nextInt();
         while (numStudentsGroup < numTeach || numStudentsGroup > numTeach*4){
             LOGGER.info("The number inputted is invalid, Please reenter a valid number:" );

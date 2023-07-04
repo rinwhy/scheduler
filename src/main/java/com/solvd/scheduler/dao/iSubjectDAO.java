@@ -6,7 +6,7 @@ public interface iSubjectDAO<T> {
 
     void insert(T subject);
 
-    void save(T subject);
+    void update(T subject);
 
     void delete(Integer subjectId);
 }
