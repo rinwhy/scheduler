@@ -30,6 +30,9 @@ public class TeacherBuilder {
             //the id should be auto incremented in sql table
             //            teach.setId(index+1);
             teachers.add(teach);
+
+            TeacherService teacherService = new TeacherService();
+            teacherService.insert(teach);
         });
         storeTeachersInDB(teachers);
         School.setTeacherList(teachers);
