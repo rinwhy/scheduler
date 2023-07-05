@@ -22,7 +22,9 @@ public class SchedulePrinter {
 
     public static void printStudentSchedule(StudentGroup studentGroup) {
         LOGGER.info("Student Group Schedule\n");
-        LOGGER.info("Group: " + studentGroup.getLetter() + "\n");
+
+        LOGGER.info("Group: " + studentGroup.getId() + "\n");
+
         String[] headers = {"Period", "Mon", "Tues", "Wed", "Thurs", "Fri"};
 
         String[][] values = studentGroup.getSchedule().getScheduleValues(studentGroup);
