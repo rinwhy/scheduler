@@ -47,6 +47,7 @@ public class Schedule {
                 break;
             }
         }
+
     }
 
     // returns the schedule values to be printed
@@ -131,5 +132,10 @@ public class Schedule {
         return "";
     }
 
-
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "scheduleMap=" + scheduleMap +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package com.solvd.scheduler.utils;
 import com.github.javafaker.Faker;
 import com.solvd.scheduler.bin.Subject;
 import com.solvd.scheduler.bin.Teacher;
+import com.solvd.scheduler.service.TeacherService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class TeacherBuilder {
             //the id should be auto incremented in sql table
             //            teach.setId(index+1);
             teachers.add(teach);
+
+            TeacherService teacherService = new TeacherService();
+            teacherService.insert(teach);
         });
         return teachers;
     }

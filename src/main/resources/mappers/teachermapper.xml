@@ -5,9 +5,9 @@
 <mapper namespace="com.solvd.scheduler.dao.ITeacherDAO">
 
     <sql id="teacherBody">
-        teachers.teacher_id as teacher_id,
+        teachers.id as teacher_id,
         teachers.name as teacher_name,
-        teachers.subjects_subject_id as subject_id
+        teachers.subject_name as subject_name
     </sql>
 
     <select id="getById" parameterType="int" resultMap="teacherResultMap">
@@ -17,7 +17,8 @@
     </select>
 
     <select id="getAll" resultMap="teacherResultMap" >
-        SELECT * FROM Teachers;
+        SELECT *
+        FROM Teachers;
     </select>
 
     <insert id="insert" parameterType="com.solvd.scheduler.bin.Teacher">
@@ -34,6 +35,12 @@
     <delete id="deleteById" parameterType="int">
         DELETE FROM teachers WHERE id = #{id}
     </delete>
+
+    <resultMap id="foreignKeyTeacherResultMap" type="com.solvd.scheduler.bin.Teacher">
+        <id property="id" column="teacher_id"/>
+        <result property="name" column="teacher_name"/>
+        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.foreignSubjectResultMap"/>
+    </resultMap>
 
     <resultMap id="teacherResultMap" type="com.solvd.scheduler.bin.Teacher">
         <id property="id" column="id"/>

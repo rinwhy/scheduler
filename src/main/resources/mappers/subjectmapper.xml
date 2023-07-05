@@ -6,7 +6,7 @@
 <mapper namespace="com.solvd.scheduler.dao.ISubjectDAO">
     
     <sql id="subjectBody">
-        subjects.subject_name as name
+        subjects.name as name
     </sql>
 
     <select id="getById" parameterType="int" resultMap="subjectResultMap">

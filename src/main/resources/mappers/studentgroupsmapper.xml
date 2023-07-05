@@ -5,7 +5,9 @@
 
 <mapper namespace="com.solvd.scheduler.dao.IStudentGroupDAO">
     <sql id="studentGroupBody">
-        student_groups.group_id as student_group_id
+        student_groups.id as student_group_id,
+        student_groups.letter as student_group_letter,
+        student_groups.num_students as student_group_num
     </sql>
 
 
@@ -43,5 +45,10 @@
         <id property="id" column="id"/>
         <result property="letter" column="letter"/>
         <result property="numStudents" column="num_students"/>
+    </resultMap>
+    <resultMap id="foreignKeyStudentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
+        <id property="id" column="student_group_id"/>
+        <result property="letter" column="student_group_letter"/>
+        <result property="numStudents" column="student_group_num"/>
     </resultMap>
 </mapper>

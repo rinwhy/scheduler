@@ -54,6 +54,10 @@ public class StudentGroup {
         this.letter = letter;
     }
 
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
     @Override
     public String toString() {
         return "StudentGroup{" +

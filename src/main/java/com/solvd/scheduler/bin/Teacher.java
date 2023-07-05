@@ -54,6 +54,9 @@ public class Teacher {
     public Schedule getSchedule() {
         return schedule;
     }
+    public void setSchedule(Schedule schedule){
+        this.schedule = schedule;
+    }
 
     public void printSchedule() {
         SchedulePrinter.printTeacherSchedule(this);

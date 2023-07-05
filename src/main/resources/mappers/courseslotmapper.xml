@@ -5,60 +5,60 @@
 <mapper namespace="com.solvd.scheduler.dao.ICourseSlotDAO">
 
     <sql id="courseSlotBody">
-        CourseSlot.course_slot_id as CourseSlot_id
-        CourseSlot.period as period,
-        CourseSlot.subjects_subject_id as subject_id
-        CourseSlot.day as day
+        Course_Slots.id as Course_Slots_id,
+        Course_Slots.period as period,
+        Course_Slots.subject_name as subject_name,
+        Course_Slots.day as day
     </sql>
 
     <sql id="getQuery">
         SELECT
         <include refid="courseSlotBody"/>,
-        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>
-        <include refid="com.solvd.scheduler.dao.ITeacherDAO.teacherBody"/>
+        <include refid="com.solvd.scheduler.dao.ISubjectDAO.subjectBody"/>,
+        <include refid="com.solvd.scheduler.dao.ITeacherDAO.teacherBody"/>,
         <include refid="com.solvd.scheduler.dao.IStudentGroupDAO.studentGroupBody"/>
-        FROM CourseSlot
-        JOIN Teachers ON Teachers.teacher_id = CourseSlot.teachers_teacher_id
-        JOIN Student_Groups ON Student_Groups.group_id = CourseSlot.student_group_id
-        JOIN Subjects ON CourseSlot.subject_id = Subjects.subject_id
+        FROM Course_Slots
+        JOIN Teachers ON Teachers.id = Course_Slots.teacher_id
+        JOIN Student_Groups ON Student_Groups.id = Course_Slots.group_id
+        JOIN Subjects ON Course_Slots.subject_name = Subjects.name
     </sql>
 
     <select id="getById" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
-        WHERE CourseSlot.course_slot_id = #{id}
+        WHERE Course_Slots.id = #{id}
     </select>
 
     <select id="getSlotsByTeacherId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
-        WHERE CourseSlot.teachers_teacher_id = #{teacherAssigned.id}
+        WHERE Course_Slots.teacher_id = #{teacherAssigned.id}
     </select>
 
     <select id="getSlotsByGroupId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
-        WHERE CourseSlot.student_group_id = #{studentGroup.id}
+        WHERE Course_Slots.group_id = #{studentGroup.id}
     </select>
 
     <update id="update">
-        UPDATE CourseSlot
-        SET period=#{period}, subjects_subject_id=#{subject.id}
-        WHERE course_slot_id=#{id}
+        UPDATE Course_Slots
+        SET period=#{period}, subject_name=#{subject.name}, day=#{day}
+        WHERE id=#{id}
     </update>
 
     <delete id="deleteById">
-        DELETE FROM CourseSlots WHERE course_slot_id = #{id}
+        DELETE FROM Course_Slots WHERE id = #{id}
     </delete>
 
     <insert id="insert">
-        INSERT INTO CourseSlots (course_slot_id, period, subjects_subject_id)
-        VALUES (#{id}, #{period}, #{subject.id})
+        INSERT INTO Course_Slots ( day,teacher_id, group_id, period, subject_name)
+        VALUES (#{day} ,#{teacherAssigned.id}, #{studentGroup.id} ,#{period}, #{subject.name})
     </insert>
 
     <resultMap id="courseSlotResultMap" type="com.solvd.scheduler.bin.CourseSlot">
-        <id property="id" column="CourseSlot_id"/>
+        <id property="id" column="Course_Slots_id"/>
         <result property="period" column="period"/>
         <result property="day" column="day"/>
-        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.subjectResultMap"/>
-        <collection property="teacherAssigned" resultMap="com.solvd.scheduler.dao.ITeacherDAO.teacherResultMap"/>
-        <collection property="studentGroup" resultMap="com.solvd.scheduler.dao.IStudentGroupDAO.studentGroupResultMap"/>
+        <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.foreignSubjectResultMap"/>
+        <collection property="teacherAssigned" resultMap="com.solvd.scheduler.dao.ITeacherDAO.foreignKeyTeacherResultMap"/>
+        <collection property="studentGroup" resultMap="com.solvd.scheduler.dao.IStudentGroupDAO.foreignKeyStudentGroupResultMap"/>
     </resultMap>
 </mapper>
