@@ -4,12 +4,24 @@ import com.solvd.scheduler.utils.SchedulePrinter;
 
 public class StudentGroup {
 
-    private final int id;
-    private final Schedule schedule;
+    private int id;
+    private char letter;
+    private Schedule schedule;
     private int numStudents;
 
-    public StudentGroup(int id) {
+
+    public StudentGroup() {
+    }
+
+    public StudentGroup(int id, char letter, int numStudents) {
         this.id = id;
+        this.letter = letter;
+        this.numStudents = numStudents;
+    }
+
+    public StudentGroup(char letter, int numStudents) {
+        this.letter = letter;
+        this.numStudents = numStudents;
         schedule = new Schedule(School.getTotalPeriods());
     }
 
@@ -32,5 +44,26 @@ public class StudentGroup {
 
     public void setNumStudents(int numStudents) {
         this.numStudents = numStudents;
+    }
+
+    public char getLetter() {
+        return letter;
+    }
+
+    public void setLetter(char letter) {
+        this.letter = letter;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentGroup{" +
+                "id=" + id +
+                ", letter=" + letter +
+                ", numStudents=" + numStudents +
+                '}';
     }
 }

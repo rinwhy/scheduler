@@ -2,12 +2,12 @@ package com.solvd.scheduler.dao;
 
 public interface ISyllabusDAO<T> {
 
-    T getById(Integer syllabusId);
+    T getById(int syllabusId);
 
     void insert(T syllabus);
 
     void update(T syllabus);
 
-    void deleteById(Integer syllabusId);
+    void deleteById(int syllabusId);
 
 }

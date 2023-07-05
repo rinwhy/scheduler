@@ -1,6 +1,5 @@
 package com.solvd.scheduler.service;
 
-import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.dao.IStudentGroupDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
@@ -8,91 +7,104 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 
-/*
- * Contains CRUD Functionality pertaining to Student and StudentGroups
- *
- * Get
- *
- * Insert
- *
- * Update
- *
- * Delete
- *
- */
+public class StudentGroupService implements IStudentGroupDAO {
 
-public class StudentGroupService {
-
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger LOGGER = LogManager.getLogger(StudentGroup.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
 
-    public StudentGroup getById(Integer studentGroupId){
-
-        if (studentGroupId <= 0) {
-            throw new IllegalArgumentException("Invalid Student Group ID");
-        }
-
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
-            StudentGroup studentGroup = (StudentGroup) studentGroupDAO.getById(studentGroupId);
-            session.commit();
-
-            logger.info("Successfully retrieved Student Group " + studentGroup.getId());
-            return studentGroup;
-        }
+    @Override
+    public StudentGroup getById(int studentGroupId) {
+        if (studentGroupId > 0) {
+            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+                return studentGroupDAO.getById(studentGroupId);
+            } catch (RuntimeException e) {
+                LOGGER.warn("Error retrieving Student Group\n" + e.getMessage());
+                e.printStackTrace();
+            }
+        } else LOGGER.warn("Invalid ID Provided");
+        return null;
     }
 
-    public void update(StudentGroup studentGroup){
+    @Override
+    public List<StudentGroup> getAll() {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+            return studentGroupDAO.getAll();
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error retrieving list of Student groups\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        LOGGER.warn("Returning null student group list\n");
+        return null;
+    }
+
+    @Override
+    public void insert(StudentGroup studentGroup) {
         validateStudentGroup(studentGroup);
 
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
-            studentGroupDAO.update(studentGroup);
-            session.commit();
-
-            logger.info("Successfully Updated Student Group " + studentGroup.getId());
-        }
-    }
-
-
-    public void deleteById(Integer studentGroupId){
-        if (studentGroupId <= 0) {
-            throw new IllegalArgumentException("Invalid StudentGroup ID");
-        }
-
-        StudentGroup studentGroup = getById(studentGroupId);
-
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
-
-            studentGroupDAO.deleteById(studentGroupId);
-            session.commit();
-
-            logger.info("Successfully deleted Student Group " + studentGroup.getId());
-        }
-    }
-
-
-    public void insert(StudentGroup studentGroup){
-        validateStudentGroup(studentGroup);
-
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.insert(studentGroup);
             session.commit();
-
-            logger.info("Successfully saved Student Group " + studentGroup.getId());
+            LOGGER.info("Inserted StudentGroup\n");
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error inserting Student Group\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void validateStudentGroup(StudentGroup studentGroup) {
-        Objects.requireNonNull(studentGroup, "Cannot procede with a blank Student Group");
+    @Override
+    public void update(StudentGroup studentGroup) {
+        validateStudentGroup(studentGroup);
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+            studentGroupDAO.update(studentGroup);
+            session.commit();
 
-        if (Objects.isNull(getById(studentGroup.getId()))) {
-            throw new RuntimeException("StudentGroup is not in the database, please insert into the database");
+            LOGGER.info("Successfully Updated Student Group\n" + studentGroup.getId());
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error updating Student group\n" + e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    @Override
+    public void deleteById(int studentGroupId) {
+        if (studentGroupId > 0) {
+            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+
+                studentGroupDAO.deleteById(studentGroupId);
+                session.commit();
+                LOGGER.info("Deleted student group\n");
+            } catch (RuntimeException e) {
+                LOGGER.warn("Error deleting student group\n" + e.getMessage());
+                e.printStackTrace();
+            }
+        } else LOGGER.warn("Invalid ID Provided");
+    }
+
+    @Override
+    public void deleteByGroupLetter(char letter) {
+            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+
+                studentGroupDAO.deleteByGroupLetter(letter);
+                session.commit();
+                LOGGER.info("Deleted student group\n");
+            } catch (RuntimeException e) {
+                LOGGER.warn("Error deleting student group\n" + e.getMessage());
+                e.printStackTrace();
+            }
+    }
+
+
+    private void validateStudentGroup(StudentGroup studentGroup) {
+        Objects.requireNonNull(studentGroup, "Cannot proceed with a blank Student Group");
     }
 }

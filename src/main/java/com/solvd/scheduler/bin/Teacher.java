@@ -14,11 +14,16 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(String name, Subject subject) {
+        this.name = name;
+        this.subject = subject;
+        schedule = new Schedule(School.getTotalPeriods());
+    }
+
     public Teacher(int id, String name, Subject subject) {
         this.id = id;
         this.name = name;
         this.subject = subject;
-
         schedule = new Schedule(School.getTotalPeriods());
     }
 
@@ -49,9 +54,20 @@ public class Teacher {
     public Schedule getSchedule() {
         return schedule;
     }
+    public void setSchedule(Schedule schedule){
+        this.schedule = schedule;
+    }
 
     public void printSchedule() {
         SchedulePrinter.printTeacherSchedule(this);
     }
 
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", subject=" + subject +
+                '}';
+    }
 }

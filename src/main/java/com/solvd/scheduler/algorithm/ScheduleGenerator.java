@@ -5,6 +5,7 @@ import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.bin.Subject;
+import com.solvd.scheduler.service.CourseSlotService;
 
 import java.time.DayOfWeek;
 
@@ -25,30 +26,45 @@ public class ScheduleGenerator {
                         if (teacher.getSchedule().checkAvailability(DayOfWeek.MONDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.MONDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
                         } else if (teacher.getSchedule().checkAvailability(DayOfWeek.TUESDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.TUESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
                         } else if (teacher.getSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
                         } else if (teacher.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
                         } else if (teacher.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
@@ -75,10 +91,15 @@ public class ScheduleGenerator {
                                 teacher.getSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.WEDNESDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
-
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot2);
+
                             teacher.getSchedule().setCourseSlot(courseSlot2);
                             studentGroup.getSchedule().setCourseSlot(courseSlot2);
                             break;
@@ -87,16 +108,25 @@ public class ScheduleGenerator {
                                 teacher.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot2);
+
                             teacher.getSchedule().setCourseSlot(courseSlot2);
                             studentGroup.getSchedule().setCourseSlot(courseSlot2);
                             break;
                         } else if (teacher.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
+
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
                             break;
@@ -126,14 +156,28 @@ public class ScheduleGenerator {
                                 teacher.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
+
+                            System.out.println("FROM SCHEDULE: " + courseSlot.toString());
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
+
+                            System.out.println("FROM SCHEDULE: " + courseSlot2.toString());
+
+                            pushToDB(courseSlot2);
+
                             teacher.getSchedule().setCourseSlot(courseSlot2);
                             studentGroup.getSchedule().setCourseSlot(courseSlot2);
 
                             CourseSlot courseSlot3 = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
+
+                            System.out.println("FROM SCHEDULE: " + courseSlot3.toString());
+
+                            pushToDB(courseSlot3);
+
                             teacher.getSchedule().setCourseSlot(courseSlot3);
                             studentGroup.getSchedule().setCourseSlot(courseSlot3);
                             break;
@@ -142,10 +186,19 @@ public class ScheduleGenerator {
                                 teacher.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i) &&
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
+
+                            System.out.println("FROM SCHEDULE: " + courseSlot.toString());
+                            pushToDB(courseSlot);
+
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
+
+                            System.out.println("FROM SCHEDULE: " + courseSlot2.toString());
+
+                            pushToDB(courseSlot2);
+
                             teacher.getSchedule().setCourseSlot(courseSlot2);
                             studentGroup.getSchedule().setCourseSlot(courseSlot2);
                             break;
@@ -156,5 +209,9 @@ public class ScheduleGenerator {
         }
     }
 
+    private static void pushToDB(CourseSlot cs){
+        CourseSlotService courseSlotService = new CourseSlotService();
+        courseSlotService.insert(cs);
+    }
 
 }

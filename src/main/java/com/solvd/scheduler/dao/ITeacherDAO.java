@@ -1,17 +1,19 @@
 package com.solvd.scheduler.dao;
 
+import com.solvd.scheduler.bin.Teacher;
+
 import java.util.List;
 
-public interface ITeacherDAO<T> {
+public interface ITeacherDAO {
 
-    T getById(Integer teacherId);
+    Teacher getById(int teacherId);
 
-    void insert(T teacher);
+    void insert(Teacher teacher);
 
-    void update(T teacher);
+    void update(Teacher teacher);
 
-    void delete(Integer teacherId);
+    void deleteById(int teacherId);
 
-    List<T> getAll();
+    List<Teacher> getAll();
 
 }

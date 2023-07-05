@@ -30,7 +30,7 @@ public Schedule getByTeacherId(int teacherId){
 
 private Schedule buildTeacherSchedule(int teacherId){
 
-    try(SqlSession session = sessionUtil.getSession().openSession()){
+    try(SqlSession session = sessionUtil.getSessionFactory().openSession()){
         ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
 
 
@@ -40,6 +40,8 @@ private Schedule buildTeacherSchedule(int teacherId){
         Schedule schedule = new Schedule(School.getTotalPeriods());
 
         slotsByTeacherId.forEach(schedule::setCourseSlot);
+        //System.out.println(schedule.toString());
+
 
 
 
@@ -74,6 +76,12 @@ private Schedule buildTeacherSchedule(int teacherId){
     private void addToSchedule(List<CourseSlot> day, Schedule schedule) {
         for (CourseSlot slot : day) {
             schedule.setCourseSlot(slot);
+
         }
     }
+
+    public void setCourseSlot(CourseSlot courseSlot) {
+
+    }
+
 }

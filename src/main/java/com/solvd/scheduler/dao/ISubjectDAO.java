@@ -1,12 +1,15 @@
 package com.solvd.scheduler.dao;
 
-public interface ISubjectDAO<T> {
+import com.solvd.scheduler.bin.Subject;
 
-    T getById(Integer subjectId);
+import java.util.List;
 
-    void insert(T subject);
+public interface ISubjectDAO {
 
-    void update(T subject);
+    Subject getById(int subjectId);
 
-    void delete(Integer subjectId);
+    List<Subject> getAll();
+
+    void deleteByName(Subject subject);
+    void insert(Subject subject);
 }
