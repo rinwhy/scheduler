@@ -18,7 +18,7 @@
     <select id="getAll" resultMap="subjectResultMap" >
         SELECT * FROM Subjects;
     </select>
-    
+
     <delete id="deleteByName" >
         DELETE FROM subjects WHERE name = #{subjectName}
     </delete>
