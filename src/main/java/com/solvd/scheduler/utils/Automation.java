@@ -20,8 +20,10 @@ public class Automation {
         TeacherService teacherService = new TeacherService();
         StudentGroupService studentGroupService = new StudentGroupService();
         List<Subject> subjects = new ArrayList<>();
+
         int schedule = inputs.get(2);
         int specific = inputs.get(3);
+
         Arrays.stream(Subject.values()).forEach(subjects::add);
         subjects.forEach(subjectService::insert);
         School.getSyllabus().addAll(subjects);
@@ -40,6 +42,7 @@ public class Automation {
         });
         groups.forEach(ScheduleGenerator::generateMWFPattern);
 
+
         if(schedule == 1){
             if(specific == 0) {
                 teachers.forEach(Teacher::printSchedule);
@@ -56,6 +59,7 @@ public class Automation {
             teachers.forEach(Teacher::printSchedule);
             groups.forEach(StudentGroup::printSchedule);
         }
+
 
     }
 }
