@@ -58,11 +58,11 @@ public class Schedule {
                 String[] tableRow =
                         {
                                 Integer.toString(i),
-                                getSubjectName(DayOfWeek.MONDAY, i) + getGroupNum(DayOfWeek.MONDAY, i),
-                                getSubjectName(DayOfWeek.TUESDAY, i) + getGroupNum(DayOfWeek.TUESDAY, i),
-                                getSubjectName(DayOfWeek.WEDNESDAY, i) + getGroupNum(DayOfWeek.WEDNESDAY, i),
-                                getSubjectName(DayOfWeek.THURSDAY, i) + getGroupNum(DayOfWeek.THURSDAY, i),
-                                getSubjectName(DayOfWeek.FRIDAY, i) + getGroupNum(DayOfWeek.FRIDAY, i)
+                                getSubjectName(DayOfWeek.MONDAY, i) + getGroupLetter(DayOfWeek.MONDAY, i),
+                                getSubjectName(DayOfWeek.TUESDAY, i) + getGroupLetter(DayOfWeek.TUESDAY, i),
+                                getSubjectName(DayOfWeek.WEDNESDAY, i) + getGroupLetter(DayOfWeek.WEDNESDAY, i),
+                                getSubjectName(DayOfWeek.THURSDAY, i) + getGroupLetter(DayOfWeek.THURSDAY, i),
+                                getSubjectName(DayOfWeek.FRIDAY, i) + getGroupLetter(DayOfWeek.FRIDAY, i)
                         };
                 dataList.add(Arrays.asList(tableRow));
             }
@@ -111,12 +111,12 @@ public class Schedule {
         } else return "------";
     }
 
-    private String getGroupNum(DayOfWeek day, int period) {
+    private String getGroupLetter(DayOfWeek day, int period) {
         if (!checkAvailability(day, period)) {
             return " {class " + scheduleMap.get(day).stream()
                     .filter(courseSlot -> courseSlot.getPeriod() == period)
                     .collect(Collectors.toList())
-                    .get(0).getStudentGroup().getId() + "}";
+                    .get(0).getStudentGroup().getLetter() + "}";
         }
         return "";
     }

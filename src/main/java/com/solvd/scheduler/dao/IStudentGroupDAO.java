@@ -16,4 +16,6 @@ public interface IStudentGroupDAO {
     void update(StudentGroup studentGroup);
 
     void deleteById(int studentId);
+
+    void deleteByGroupLetter(char letter);
 }

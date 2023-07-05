@@ -31,7 +31,7 @@
         WHERE id=#{id}
     </update>
 
-    <delete id="deleteById">
+    <delete id="deleteById" parameterType="int">
         DELETE FROM teachers WHERE id = #{id}
     </delete>
 

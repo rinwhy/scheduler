@@ -3,12 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.scheduler.dao.ICourseSlotDAO">
+
     <sql id="courseSlotBody">
         CourseSlot.course_slot_id as CourseSlot_id
         CourseSlot.period as period,
         CourseSlot.subjects_subject_id as subject_id
         CourseSlot.day as day
     </sql>
+
     <sql id="getQuery">
         SELECT
         <include refid="courseSlotBody"/>,
@@ -20,30 +22,37 @@
         JOIN Student_Groups ON Student_Groups.group_id = CourseSlot.student_group_id
         JOIN Subjects ON CourseSlot.subject_id = Subjects.subject_id
     </sql>
+
     <select id="getById" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.course_slot_id = #{id}
     </select>
+
     <select id="getSlotsByTeacherId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.teachers_teacher_id = #{teacherAssigned.id}
     </select>
+
     <select id="getSlotsByGroupId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE CourseSlot.student_group_id = #{studentGroup.id}
     </select>
+
     <update id="update">
         UPDATE CourseSlot
         SET period=#{period}, subjects_subject_id=#{subject.id}
         WHERE course_slot_id=#{id}
     </update>
+
     <delete id="deleteById">
         DELETE FROM CourseSlots WHERE course_slot_id = #{id}
     </delete>
+
     <insert id="insert">
         INSERT INTO CourseSlots (course_slot_id, period, subjects_subject_id)
         VALUES (#{id}, #{period}, #{subject.id})
     </insert>
+
     <resultMap id="courseSlotResultMap" type="com.solvd.scheduler.bin.CourseSlot">
         <id property="id" column="CourseSlot_id"/>
         <result property="period" column="period"/>

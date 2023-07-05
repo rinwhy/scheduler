@@ -75,24 +75,36 @@ public class StudentGroupService implements IStudentGroupDAO {
 
     @Override
     public void deleteById(int studentGroupId) {
-        if (studentGroupId <= 0) {
-            throw new IllegalArgumentException("Invalid StudentGroup ID");
-        }
+        if (studentGroupId > 0) {
+            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
-        StudentGroup studentGroup = getById(studentGroupId);
+                studentGroupDAO.deleteById(studentGroupId);
+                session.commit();
+                LOGGER.info("Deleted student group\n");
+            } catch (RuntimeException e) {
+                LOGGER.warn("Error deleting student group\n" + e.getMessage());
+                e.printStackTrace();
+            }
+        } else LOGGER.warn("Invalid ID Provided");
+    }
 
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+    @Override
+    public void deleteByGroupLetter(char letter) {
+            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
-            studentGroupDAO.deleteById(studentGroupId);
-            session.commit();
-
-            LOGGER.info("Successfully deleted Student Group " + studentGroup.getId());
-        }
+                studentGroupDAO.deleteByGroupLetter(letter);
+                session.commit();
+                LOGGER.info("Deleted student group\n");
+            } catch (RuntimeException e) {
+                LOGGER.warn("Error deleting student group\n" + e.getMessage());
+                e.printStackTrace();
+            }
     }
 
 
     private void validateStudentGroup(StudentGroup studentGroup) {
-        Objects.requireNonNull(studentGroup, "Cannot procede with a blank Student Group");
+        Objects.requireNonNull(studentGroup, "Cannot proceed with a blank Student Group");
     }
 }
