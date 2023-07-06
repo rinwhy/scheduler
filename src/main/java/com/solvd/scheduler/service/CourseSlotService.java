@@ -11,12 +11,17 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Objects;
 
-public class CourseSlotService {
+
+/**
+ * CourseSlotService provides the operations that interact with CourseSlot objects in the database
+ */
+public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
 
     private static final Logger logger = LogManager.getLogger(Main.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
 
-    public List<CourseSlot> getByTeacherId(Integer teacherId){
+    @Override
+    public List<CourseSlot> getSlotsByTeacherId(Integer teacherId){
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
@@ -37,12 +42,13 @@ public class CourseSlotService {
         return null;
     }
 
-    public List<CourseSlot> getByStudentGroupId(Integer studentGroupId){
+    @Override
+    public List<CourseSlot> getSlotsByStudentGroupId(Integer studentGroupId){
 
         if (studentGroupId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
-                List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getSlotsByGroupId(studentGroupId);
+                List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getSlotsByStudentGroupId(studentGroupId);
                 session.commit();
 
                 logger.info("Successfully retrieved all Course Slots tied to Student Group " + studentGroupId);
@@ -56,7 +62,7 @@ public class CourseSlotService {
         return null;
     }
 
-
+    @Override
     public CourseSlot getById(Integer courseSlotId){
 
         if (courseSlotId > 0) {
@@ -76,11 +82,12 @@ public class CourseSlotService {
         return null;
     }
 
+    @Override
     public void update(CourseSlot courseSlot){
         validateCourseSlot(courseSlot);
 
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.update(courseSlot);
             session.commit();
 
@@ -90,14 +97,14 @@ public class CourseSlotService {
         }
     }
 
-
+    @Override
     public void deleteById(Integer courseSlotId){
         if(courseSlotId > 0 ){
 
             CourseSlot courseSlot = getById(courseSlotId);
             if(courseSlot != null){
                 try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                    ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+                    ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                     courseSlotDAO.deleteById(courseSlotId);
                     session.commit();
                     logger.info("Successfully deleted Course Slot with ID: " + courseSlot.getId() + "\n");
@@ -110,11 +117,12 @@ public class CourseSlotService {
         }else logger.warn("Invalid Course Slot ID\n");
     }
 
+    @Override
     public void insert(CourseSlot courseSlot){
         validateCourseSlot(courseSlot);
 
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.insert(courseSlot);
             session.commit();
             logger.info("Successfully saved Course Slot with ID: " + courseSlot.getId() + "\n");
@@ -124,29 +132,6 @@ public class CourseSlotService {
         }
 
     }
-
-    /*public List<CourseSlot> getAll() {
-
-        try (SqlSession session = sessionUtil.getSession()) {
-    *//*public List<CourseSlot> getAll() {
-
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
-
-            iCourseSlotDAO courseSlotDAO = session.getMapper(iCourseSlotDAO.class);
-
-            List<CourseSlot> courseSlots = courseSlotDAO.getAll();
-
-            if (courseSlots.isEmpty()) {
-                logger.info("No Course Slots in Database");
-                throw new RuntimeException("No Course Slots in Database");
-            }
-
-            logger.info("Successfully retrieved all Course Slots in database");
-            return courseSlots;
-        }
-*//*
-        }
-    }*/
 
     private void validateCourseSlot(CourseSlot courseSlot) {
         Objects.requireNonNull(courseSlot, "Cannot procede with a blank Course Slot");

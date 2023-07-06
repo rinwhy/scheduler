@@ -2,6 +2,10 @@ package com.solvd.scheduler.bin;
 
 import java.time.DayOfWeek;
 
+/**
+ * Represents a CourseSlot entity in the database
+ * Contains information about open/ closed CourseSlots in a Schedule Object
+ */
 public class CourseSlot {
 
     private int id;
@@ -77,10 +81,14 @@ public class CourseSlot {
     @Override
     public String toString() {
         return "CourseSlot{" +
-                "slotAssigned=" + slotOpen +
+                "id=" + id +
+                ", courseSlotId=" + courseSlotId +
+                ", slotOpen=" + slotOpen +
                 ", day=" + day +
+                ", period=" + period +
                 ", subject=" + subject +
                 ", teacherAssigned=" + teacherAssigned +
+                ", studentGroup=" + studentGroup +
                 '}';
     }
 
@@ -91,4 +99,5 @@ public class CourseSlot {
     public void setId(int id) {
         this.id = id;
     }
+
 }

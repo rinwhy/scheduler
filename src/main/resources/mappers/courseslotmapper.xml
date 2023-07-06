@@ -6,7 +6,7 @@
 
     <sql id="courseSlotBody">
         Course_Slots.id as Course_Slots_id,
-        Course_Slots.period as period,
+        Course_Slots.period as course_slot_period,
         Course_Slots.subject_name as subject_name,
         Course_Slots.day as day
     </sql>
@@ -33,7 +33,7 @@
         WHERE Course_Slots.teacher_id = #{teacherAssigned.id}
     </select>
 
-    <select id="getSlotsByGroupId" resultMap="courseSlotResultMap">
+    <select id="getSlotsByStudentGroupId" resultMap="courseSlotResultMap">
         <include refid="getQuery"/>
         WHERE Course_Slots.group_id = #{studentGroup.id}
     </select>
@@ -55,7 +55,7 @@
 
     <resultMap id="courseSlotResultMap" type="com.solvd.scheduler.bin.CourseSlot">
         <id property="id" column="Course_Slots_id"/>
-        <result property="period" column="period"/>
+        <result property="period" column="course_slot_period"/>
         <result property="day" column="day"/>
         <collection property="subject" resultMap="com.solvd.scheduler.dao.ISubjectDAO.foreignSubjectResultMap"/>
         <collection property="teacherAssigned" resultMap="com.solvd.scheduler.dao.ITeacherDAO.foreignKeyTeacherResultMap"/>

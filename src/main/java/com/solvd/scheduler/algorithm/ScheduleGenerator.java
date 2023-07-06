@@ -8,10 +8,21 @@ import com.solvd.scheduler.bin.Subject;
 import com.solvd.scheduler.service.CourseSlotService;
 
 import java.time.DayOfWeek;
-
+/**
+ * ScheduleGenerator class provides methods for generating schedules for student groups based on available teachers and subjects
+ * Patterns supported Single, Double and MWF(Mon-Wed-Fri)
+ * Schedules are stored in respective Teacher and StudentGroup tables in database
+ */
 public class ScheduleGenerator {
 
-
+    /**
+     * Generates a schedule for a student group using a single pattern
+     * Each subject is assigned to a teacher who teaches that subject, and an available slot is assigned for each course
+     * The generated schedule is stored in the teacher and student group objects
+     * CourseSlots are stored in their respective database table
+     *
+     * @param studentGroup The student group for which the schedule is generated
+     */
     public static void generateSinglePattern(StudentGroup studentGroup) {
 
         //set the subjects of a group
@@ -75,6 +86,14 @@ public class ScheduleGenerator {
         }
     }
 
+    /**
+     * Generates a schedule for a student group using a double pattern
+     * Each subject is assigned to a teacher who teaches that subject, and available slots are assigned for each course
+     * The generated schedule is stored in the teacher and student group objects
+     * CourseSlots are stored in the database in their respective table
+     *
+     * @param studentGroup The student group for which the schedule is generated
+     */
     public static void generateDoublePattern(StudentGroup studentGroup) {
 
         //set the subjects of the a group
@@ -138,6 +157,14 @@ public class ScheduleGenerator {
 
     }
 
+    /**
+     * Generates a schedule for a student group using an MW-F (Monday-Wednesday-Friday) pattern
+     * Each subject is assigned to a teacher who teaches that subject, and available slots are assigned for each course on Monday, Wednesday, and Friday
+     * The generated schedule is stored in the teacher and student group objects
+     * CourseSlots are stored in the database in their respective tables
+     *
+     * @param studentGroup The student group for which the schedule is generated
+     */
     public static void generateMWFPattern(StudentGroup studentGroup) {
 
         //set the subjects of the a group
@@ -157,15 +184,12 @@ public class ScheduleGenerator {
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.FRIDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.MONDAY, i, subject, teacher, studentGroup);
 
-                            System.out.println("FROM SCHEDULE: " + courseSlot.toString());
                             pushToDB(courseSlot);
 
                             teacher.getSchedule().setCourseSlot(courseSlot);
                             studentGroup.getSchedule().setCourseSlot(courseSlot);
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.WEDNESDAY, i, subject, teacher, studentGroup);
-
-                            System.out.println("FROM SCHEDULE: " + courseSlot2.toString());
 
                             pushToDB(courseSlot2);
 
@@ -174,7 +198,6 @@ public class ScheduleGenerator {
 
                             CourseSlot courseSlot3 = new CourseSlot(DayOfWeek.FRIDAY, i, subject, teacher, studentGroup);
 
-                            System.out.println("FROM SCHEDULE: " + courseSlot3.toString());
 
                             pushToDB(courseSlot3);
 
@@ -187,7 +210,6 @@ public class ScheduleGenerator {
                                 studentGroup.getSchedule().checkAvailability(DayOfWeek.THURSDAY, i)) {
                             CourseSlot courseSlot = new CourseSlot(DayOfWeek.TUESDAY, i, subject, teacher, studentGroup);
 
-                            System.out.println("FROM SCHEDULE: " + courseSlot.toString());
                             pushToDB(courseSlot);
 
                             teacher.getSchedule().setCourseSlot(courseSlot);
@@ -195,7 +217,6 @@ public class ScheduleGenerator {
 
                             CourseSlot courseSlot2 = new CourseSlot(DayOfWeek.THURSDAY, i, subject, teacher, studentGroup);
 
-                            System.out.println("FROM SCHEDULE: " + courseSlot2.toString());
 
                             pushToDB(courseSlot2);
 
@@ -213,5 +234,4 @@ public class ScheduleGenerator {
         CourseSlotService courseSlotService = new CourseSlotService();
         courseSlotService.insert(cs);
     }
-
 }

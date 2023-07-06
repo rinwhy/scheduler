@@ -1,5 +1,10 @@
 package com.solvd.scheduler.bin;
 
+/**
+ * Subject class represents an entity in the database
+ * The Subject enum represents different subjects taught in the school curriculum
+ * Each Subject represents a value in the database
+ */
 public enum Subject {
     MATH("Math"),
     SCIENCE("Science"),
