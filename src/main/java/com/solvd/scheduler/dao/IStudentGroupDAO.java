@@ -1,19 +1,23 @@
 package com.solvd.scheduler.dao;
 
-import com.solvd.scheduler.bin.StudentGroup;
 
 import java.util.List;
 
-public interface IStudentGroupDAO {
+/**
+ * IStudentGroupDAO interface defines the contract for accessing and manipulating StudentGroup data in the database
+ * It provides methods to retrieve, insert, update, and delete StudentGroups in the database
+ * @param <T> StudentGroup
+ */
+public interface IStudentGroupDAO<T> {
 
 
-    StudentGroup getById(int studentId);
+    T getById(int studentId);
 
-    List<StudentGroup> getAll();
+    List<T> getAll();
 
-    void insert(StudentGroup studentGroup);
+    void insert(T studentGroup);
 
-    void update(StudentGroup studentGroup);
+    void update(T studentGroup);
 
     void deleteById(int studentId);
 

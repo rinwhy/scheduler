@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * Automates the process of generating and printing schedules
+ *
+ * User input is used to filter for specific information
+ */
 public class Automation {
     public static void automation(List<Integer> inputs){
         SubjectService subjectService = new SubjectService();
@@ -59,7 +65,5 @@ public class Automation {
             teachers.forEach(Teacher::printSchedule);
             groups.forEach(StudentGroup::printSchedule);
         }
-
-
     }
 }

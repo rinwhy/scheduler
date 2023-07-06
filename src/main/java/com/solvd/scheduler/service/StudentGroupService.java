@@ -10,7 +10,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Objects;
 
-public class StudentGroupService implements IStudentGroupDAO {
+
+/**
+ * StudentGroupService provides operations to interact with StudentGroup objects in the database
+ */
+public class StudentGroupService implements IStudentGroupDAO<StudentGroup> {
 
     private static final Logger LOGGER = LogManager.getLogger(StudentGroup.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
@@ -19,7 +23,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     public StudentGroup getById(int studentGroupId) {
         if (studentGroupId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+                IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
                 return studentGroupDAO.getById(studentGroupId);
             } catch (RuntimeException e) {
                 LOGGER.warn("Error retrieving Student Group\n" + e.getMessage());
@@ -32,7 +36,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     @Override
     public List<StudentGroup> getAll() {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+            IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             return studentGroupDAO.getAll();
         } catch (RuntimeException e) {
             LOGGER.warn("Error retrieving list of Student groups\n" + e.getMessage());
@@ -47,7 +51,7 @@ public class StudentGroupService implements IStudentGroupDAO {
         validateStudentGroup(studentGroup);
 
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+            IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.insert(studentGroup);
             session.commit();
@@ -62,7 +66,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     public void update(StudentGroup studentGroup) {
         validateStudentGroup(studentGroup);
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+            IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             studentGroupDAO.update(studentGroup);
             session.commit();
 
@@ -77,7 +81,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     public void deleteById(int studentGroupId) {
         if (studentGroupId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+                IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
                 studentGroupDAO.deleteById(studentGroupId);
                 session.commit();
@@ -91,18 +95,17 @@ public class StudentGroupService implements IStudentGroupDAO {
 
     @Override
     public void deleteByGroupLetter(char letter) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            IStudentGroupDAO<StudentGroup> studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
-                studentGroupDAO.deleteByGroupLetter(letter);
-                session.commit();
-                LOGGER.info("Deleted student group\n");
-            } catch (RuntimeException e) {
-                LOGGER.warn("Error deleting student group\n" + e.getMessage());
-                e.printStackTrace();
-            }
+            studentGroupDAO.deleteByGroupLetter(letter);
+            session.commit();
+            LOGGER.info("Deleted student group\n");
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error deleting student group\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
-
 
     private void validateStudentGroup(StudentGroup studentGroup) {
         Objects.requireNonNull(studentGroup, "Cannot proceed with a blank Student Group");

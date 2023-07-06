@@ -2,6 +2,10 @@ package com.solvd.scheduler.bin;
 
 import java.time.DayOfWeek;
 
+/**
+ * Represents a CourseSlot entity in the database
+ * Contains information about open/ closed CourseSlots in a Schedule Object
+ */
 public class CourseSlot {
 
     private int id;

@@ -9,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class SubjectService implements ISubjectDAO {
+/**
+ * SubjectService provides operations for interacting with Subject Entities in the database
+ */
+public class SubjectService implements ISubjectDAO<Subject> {
 
     private static final Logger LOGGER = LogManager.getLogger(Subject.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
@@ -18,7 +21,7 @@ public class SubjectService implements ISubjectDAO {
     public Subject getById(int subjectId) {
         if (subjectId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+                ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
                 return subjectDAO.getById(subjectId);
             } catch (RuntimeException e) {
                 LOGGER.warn("Error retrieving subject\n" + e.getMessage());
@@ -31,7 +34,7 @@ public class SubjectService implements ISubjectDAO {
     @Override
     public List<Subject> getAll() {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
             return subjectDAO.getAll();
         } catch (RuntimeException e) {
             LOGGER.warn("Error retrieving list of subjects\n" + e.getMessage());
@@ -44,7 +47,7 @@ public class SubjectService implements ISubjectDAO {
     @Override
     public void deleteByName(Subject subject) {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
             subjectDAO.deleteByName(subject);
             session.commit();
             LOGGER.info("Deleted " + subject.name());
@@ -56,9 +59,8 @@ public class SubjectService implements ISubjectDAO {
 
     @Override
     public void insert(Subject subject) {
-
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
             subjectDAO.insert(subject);
             session.commit();
             LOGGER.info("Inserted " + subject.name());

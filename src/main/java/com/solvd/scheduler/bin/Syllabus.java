@@ -3,6 +3,10 @@ package com.solvd.scheduler.bin;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Syllabus represents an intermediary table in the database
+ * It represents the syllabus for a specific student group
+ */
 public class Syllabus {
     private int studentGroupId;
     private int subjectId;

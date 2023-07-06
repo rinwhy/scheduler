@@ -2,6 +2,9 @@ package com.solvd.scheduler.bin;
 
 import com.solvd.scheduler.utils.SchedulePrinter;
 
+/**
+ * The StudentGroup class represents a group of students in the school
+ */
 public class StudentGroup {
 
     private int id;

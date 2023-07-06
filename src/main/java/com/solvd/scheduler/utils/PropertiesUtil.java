@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * PropertiesUtil provides utility methods for retrieving properties for a configuration file
+ */
 public class PropertiesUtil {
     public static Properties getProperties(){
         Properties properties = new Properties();

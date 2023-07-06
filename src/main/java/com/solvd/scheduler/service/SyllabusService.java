@@ -74,30 +74,8 @@ public class SyllabusService {
         }
     }
 
-    /*public List<Syllabus> getAll() {
-
-        try (SqlSession session = sessionUtil.getSession().openSession()) {
-            ISyllabusDAO syllabusDAO = session.getMapper(ISyllabusDAO.class);
-
-            List<Syllabus> syllabuses = syllabusDAO.getAll();
-
-            if (syllabuses.isEmpty()) {
-                logger.info("No Syllabuses in Database");
-                throw new RuntimeException("No Syllabuses in Database");
-            }
-
-            logger.info("Successfully retrieved all Syllabuses in database");
-            return syllabuses;
-        }
-    }*/
-
     private void validateSyllabus(Syllabus syllabus) {
         Objects.requireNonNull(syllabus, "Cannot procede with a blank syllabus");
 
-        if (syllabus.getSyllabus().isEmpty()) {
-            throw new RuntimeException("Syllabus is not in the database, please insert into the database");
-        }
     }
-
-
 }

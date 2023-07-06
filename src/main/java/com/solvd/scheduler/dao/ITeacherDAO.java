@@ -1,19 +1,22 @@
 package com.solvd.scheduler.dao;
 
-import com.solvd.scheduler.bin.Teacher;
-
 import java.util.List;
 
-public interface ITeacherDAO {
+/**
+ * ITeacherDAO interface defines the contract for accessing and manipulating Teacher data in the database
+ * It provides methods to retrieve, insert, update, and delete Teachers in the database
+ * @param <T> Teacher
+ */
+public interface ITeacherDAO<T> {
 
-    Teacher getById(int teacherId);
+    T getById(int teacherId);
 
-    void insert(Teacher teacher);
+    void insert(T teacher);
 
-    void update(Teacher teacher);
+    void update(T teacher);
 
     void deleteById(int teacherId);
 
-    List<Teacher> getAll();
+    List<T> getAll();
 
 }

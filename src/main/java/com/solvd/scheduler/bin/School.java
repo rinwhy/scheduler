@@ -1,10 +1,12 @@
 package com.solvd.scheduler.bin;
 
-import com.solvd.scheduler.bin.Teacher;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The School class represents a school institution
+ * It serves as a reference point for accessing and managing school-related data in the application
+ */
 public class School {
 
     private static final int TOTAL_PERIODS = 4;

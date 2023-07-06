@@ -7,9 +7,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
+/**
+ * SchedulePrinter provides utility methods for printing schedules of teachers and student groups
+ */
 public class SchedulePrinter {
     private final static Logger LOGGER = LogManager.getLogger(SchedulePrinter.class);
 
+
+    /**
+     * Prints schedule based on the Teacher input
+     * @param teacher
+     */
     public static void printTeacherSchedule(Teacher teacher) {
         LOGGER.info("Teachers Schedule\n");
         LOGGER.info("Name: " + teacher.getName() + "\nTeacher ID:" + teacher.getId() + "\n");
@@ -20,6 +28,10 @@ public class SchedulePrinter {
         LOGGER.info("\n" + FlipTable.of(headers, values));
     }
 
+    /**
+     * Prints schedule based on the StudentGroup input
+     * @param studentGroup
+     */
     public static void printStudentSchedule(StudentGroup studentGroup) {
         LOGGER.info("Student Group Schedule\n");
 
@@ -31,6 +43,4 @@ public class SchedulePrinter {
 
         LOGGER.info("\n" + FlipTable.of(headers, values));
     }
-
-
 }
