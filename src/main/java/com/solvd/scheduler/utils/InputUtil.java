@@ -5,6 +5,7 @@ import com.solvd.scheduler.bin.Subject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,9 +21,11 @@ public class InputUtil {
     public static List<Integer> getInputs() {
         List<Integer> inputs = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
-        int numTeach, numStudentsGroup, schedule, table;
+        int numTeach, numStudentsGroup;
+        boolean closeApp = false;
         int numPeriods = School.getTotalPeriods();
         int numSubjects = Subject.values().length;
+
         LOGGER.info("Please enter number of Teachers (Must be at least " + numSubjects
                 + " number of Teachers): ");
         numTeach = reader.nextInt();
@@ -33,19 +36,24 @@ public class InputUtil {
         inputs.add(numTeach);
         LOGGER.info("Please enter number of Student Groups (Must be 1"
                 + "-" + numPeriods * 2 + " number of Student Group): ");
-
-
         // Range of student Groups, from min to max
         // (  1 > (numOfPeriods*2)
         numStudentsGroup = reader.nextInt();
-
-
         while (numStudentsGroup < 1 || numStudentsGroup > numPeriods * 2) {
             LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
             numStudentsGroup = reader.nextInt();
         }
         inputs.add(numStudentsGroup);
 
+        inputs = selectTable(inputs, reader);
+
+        return inputs;
+    }
+
+    public static List<Integer> selectTable(List<Integer> inputs, Scanner reader){
+        int schedule, table, numTeach, numStudentsGroup;
+        numTeach = inputs.get(0);
+        numStudentsGroup = inputs.get(1);
         LOGGER.info("Please Enter 1 to see Teacher Schedule, 2 for Students Schedule, and 3 for All:");
         schedule = reader.nextInt();
 
@@ -54,7 +62,7 @@ public class InputUtil {
             LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
             schedule = reader.nextInt();
         }
-        inputs.add(schedule);
+        inputs.add(2, schedule);
 
 
         if (schedule == 1) {
@@ -76,11 +84,9 @@ public class InputUtil {
         } else {
             table = -1;
         }
-
-
-        inputs.add(table);
-        reader.close();
-        return inputs;
+        inputs.add(3, table);
+        return  inputs;
     }
+
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TestingAuto {
     public static void main(String[] args) {
-        Automation.automation(InputUtil.getInputs());
+        Automation.automation();
 
         /*TeacherService teacherService = new TeacherService();
         List<Teacher> teachers = teacherService.getAll();

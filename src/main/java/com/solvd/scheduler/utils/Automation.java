@@ -9,10 +9,13 @@ import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.service.StudentGroupService;
 import com.solvd.scheduler.service.SubjectService;
 import com.solvd.scheduler.service.TeacherService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 
 /**
@@ -21,7 +24,10 @@ import java.util.List;
  * User input is used to filter for specific information
  */
 public class Automation {
-    public static void automation(List<Integer> inputs){
+    private final static Logger LOGGER = LogManager.getLogger(Automation.class);
+
+    public static void automation(){
+        List<Integer> inputs = InputUtil.getInputs();
         SubjectService subjectService = new SubjectService();
         TeacherService teacherService = new TeacherService();
         StudentGroupService studentGroupService = new StudentGroupService();
@@ -65,5 +71,40 @@ public class Automation {
             teachers.forEach(Teacher::printSchedule);
             groups.forEach(StudentGroup::printSchedule);
         }
+
+        int terminate=1;
+        Scanner reader = new Scanner(System.in);
+        while (terminate == 1) {
+            LOGGER.info("Press 1 to get another Schedule or 2 to terminate app: ");
+            terminate = reader.nextInt();
+            while (terminate < 1 || terminate > 2) {
+                System.out.println(terminate);
+                LOGGER.info("TEST: The number inputted is invalid, Please reenter a valid number:");
+                terminate = reader.nextInt();
+            }
+            if(terminate == 1){
+                inputs = InputUtil.selectTable(inputs, reader);
+                schedule = inputs.get(2);
+                specific = inputs.get(3);
+                if(schedule == 1){
+                    if(specific == 0) {
+                        teachers.forEach(Teacher::printSchedule);
+                    }else{
+                        teachers.get(specific-1).printSchedule();
+                    }
+                }else if(schedule ==2){
+                    if(specific == 0) {
+                        groups.forEach(StudentGroup::printSchedule);
+                    }else{
+                        groups.get(specific-1).printSchedule();
+                    }
+                }else {
+                    teachers.forEach(Teacher::printSchedule);
+                    groups.forEach(StudentGroup::printSchedule);
+                }
+            }
+        }
+        reader.close();
+
     }
 }
