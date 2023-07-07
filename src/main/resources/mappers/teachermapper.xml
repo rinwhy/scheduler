@@ -21,6 +21,10 @@
         FROM Teachers;
     </select>
 
+    <select id="getNumberOfTeachers" resultType="int">
+        SELECT COUNT(id) FROM Teachers;
+    </select>
+
     <insert id="insert" parameterType="com.solvd.scheduler.bin.Teacher">
         INSERT INTO Teachers(`name`, subject_name)
         VALUES (#{name}, #{subject})

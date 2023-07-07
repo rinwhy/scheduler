@@ -22,4 +22,6 @@ public interface ICourseSlotDAO {
     void update(CourseSlot slot);
 
     void deleteById(Integer courseSlotId);
+    void deleteAll();
+    int getNumberOfCourseSlots();
 }

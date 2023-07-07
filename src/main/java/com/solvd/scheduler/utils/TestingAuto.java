@@ -5,6 +5,7 @@ import com.solvd.scheduler.bin.*;
 import com.solvd.scheduler.service.CourseSlotService;
 import com.solvd.scheduler.service.SchedulingService;
 import com.solvd.scheduler.service.StudentGroupService;
+import com.solvd.scheduler.service.SubjectService;
 import com.solvd.scheduler.service.TeacherService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +20,7 @@ public class TestingAuto {
 
     public static void main(String[] args) {
 
-    Automation automation = new Automation();
+        Automation automation = new Automation();
 
         //GUI display Schdeule Generator
         LOGGER.info("Schedule Generator\n");
@@ -28,6 +29,8 @@ public class TestingAuto {
         ScheduleGenerator.generateMWFPattern();
 
         InputUtil.menuSelection();
+
+
 
     }
 }

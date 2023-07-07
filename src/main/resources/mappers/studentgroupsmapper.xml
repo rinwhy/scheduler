@@ -17,6 +17,10 @@
         WHERE id = #{id};
     </select>
 
+    <select id="getNumberOfStudentGroups" resultType="int">
+        SELECT COUNT(id) FROM student_groups;
+    </select>
+
     <select id="getAll" resultMap="studentGroupResultMap">
         SELECT * FROM student_groups;
     </select>
@@ -43,12 +47,10 @@
 
     <resultMap id="studentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
         <id property="id" column="id"/>
-        <result property="letter" column="letter"/>
         <result property="numStudents" column="num_students"/>
     </resultMap>
     <resultMap id="foreignKeyStudentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
         <id property="id" column="student_group_id"/>
-        <result property="letter" column="student_group_letter"/>
         <result property="numStudents" column="student_group_num"/>
     </resultMap>
 </mapper>

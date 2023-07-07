@@ -3,6 +3,7 @@ package com.solvd.scheduler.service;
 import com.solvd.scheduler.Main;
 import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.dao.ICourseSlotDAO;
+import com.solvd.scheduler.dao.ISubjectDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -115,6 +116,30 @@ public class CourseSlotService implements ICourseSlotDAO{
             }
 
         }else logger.warn("Invalid Course Slot ID\n");
+    }
+
+    @Override
+    public void deleteAll() {
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            courseSlotDAO.deleteAll();
+        } catch (RuntimeException e) {
+            logger.warn("Error retrieving list of course slots\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getNumberOfCourseSlots() {
+        int numCourseSlot=0;
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            numCourseSlot= courseSlotDAO.getNumberOfCourseSlots();
+        } catch (RuntimeException e) {
+            logger.warn("Error retrieving list of Course Slots\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return numCourseSlot;
     }
 
     @Override
