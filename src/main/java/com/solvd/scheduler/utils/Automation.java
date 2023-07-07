@@ -37,9 +37,6 @@ public class Automation {
         //adding subjects to DB
         SubjectService subjectService = new SubjectService();
         List<Subject> subjects = new ArrayList<>(Arrays.asList(Subject.values()));
-
-//        List<Subject> subjects = new ArrayList<>();
-//        Arrays.stream(Subject.values()).forEach(subjects::add);
         subjects.forEach(subjectService::insert);
         School.getSyllabus().addAll(subjects);
     }
@@ -80,65 +77,5 @@ public class Automation {
         });
         School.setStudentGroupList(groups);
     }
-
-
-
-
-
-
-//
-//    public static void automation(){
-//
-//        if(schedule == 1){
-//            if(specific == 0) {
-//                teachers.forEach(Teacher::printSchedule);
-//            }else{
-//                teachers.get(specific-1).printSchedule();
-//            }
-//        }else if(schedule ==2){
-//            if(specific == 0) {
-//                groups.forEach(StudentGroup::printSchedule);
-//            }else{
-//                groups.get(specific-1).printSchedule();
-//            }
-//        }else {
-//            teachers.forEach(Teacher::printSchedule);
-//            groups.forEach(StudentGroup::printSchedule);
-//        }
-//
-//        int terminate=1;
-//        Scanner reader = new Scanner(System.in);
-//        while (terminate == 1) {
-//            LOGGER.info("Press 1 to get another Schedule or 2 to terminate app: ");
-//            terminate = reader.nextInt();
-//            while (terminate < 1 || terminate > 2) {
-//                System.out.println(terminate);
-//                LOGGER.info("TEST: The number inputted is invalid, Please reenter a valid number:");
-//                terminate = reader.nextInt();
-//            }
-//            if(terminate == 1){
-//                inputs = InputUtil.selectTable(inputs, reader);
-//                schedule = inputs.get(2);
-//                specific = inputs.get(3);
-//                if(schedule == 1){
-//                    if(specific == 0) {
-//                        teachers.forEach(Teacher::printSchedule);
-//                    }else{
-//                        teachers.get(specific-1).printSchedule();
-//                    }
-//                }else if(schedule ==2){
-//                    if(specific == 0) {
-//                        groups.forEach(StudentGroup::printSchedule);
-//                    }else{
-//                        groups.get(specific-1).printSchedule();
-//                    }
-//                }else {
-//                    teachers.forEach(Teacher::printSchedule);
-//                    groups.forEach(StudentGroup::printSchedule);
-//                }
-//            }
-//        }
-//        reader.close();
-//
 //    }
 }
