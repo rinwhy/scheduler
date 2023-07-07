@@ -3,13 +3,17 @@ package com.solvd.scheduler.bin;
 
 import com.solvd.scheduler.utils.SchedulePrinter;
 
+
+/**
+ * Teacher represents the Teacher entity in our database
+ * Contains information pertaining to individual Teachers
+ */
 public class Teacher {
 
     private int id;
     private String name;
-    private Subject subject;         // subject
-    private Schedule schedule;        // teachers schedule
-
+    private Subject subject;
+    private Schedule schedule;
 
     public Teacher() {
     }

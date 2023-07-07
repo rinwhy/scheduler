@@ -1,18 +1,25 @@
 package com.solvd.scheduler.dao;
 
+import com.solvd.scheduler.bin.CourseSlot;
+
 import java.util.List;
 
-public interface ICourseSlotDAO<T> {
+/**
+ * ICourseSlotDAO interface defines the contract for accessing and manipulating course slot data in the database
+ * It provides methods to retrieve, insert, update, and delete course slot objects
 
-    T getById(int courseSlotId);
+ */
+public interface ICourseSlotDAO {
 
-    List<T> getSlotsByTeacherId(int teacherId);
+    CourseSlot getById(Integer courseSlotId);
 
-    List<T>  getSlotsByGroupId(int studentId);
+    List<CourseSlot> getSlotsByTeacherId(Integer teacherId);
 
-    void insert(T CourseSlot);
+    List<CourseSlot>  getSlotsByStudentGroupId(Integer studentId);
 
-    void update(T CourseSlot);
+    void insert(CourseSlot slot);
 
-    void deleteById(int courseSlotId);
+    void update(CourseSlot slot);
+
+    void deleteById(Integer courseSlotId);
 }

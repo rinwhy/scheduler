@@ -19,7 +19,6 @@
     <mapper resource="mappers/courseslotmapper.xml" />
     <mapper resource="mappers/studentgroupsmapper.xml" />
     <mapper resource="mappers/subjectmapper.xml" />
-    <mapper resource="mappers/syllabusmapper.xml" />
     <mapper resource="mappers/teachermapper.xml" />
 </mappers>
 </configuration>

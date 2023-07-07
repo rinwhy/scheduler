@@ -8,8 +8,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * TeacherService provides the operations that interact with Teacher objects in the database
+ */
 public class TeacherService implements ITeacherDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherService.class);
@@ -20,7 +22,10 @@ public class TeacherService implements ITeacherDAO {
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
-                return teacherDAO.getById(teacherId);
+                Teacher teacher = teacherDAO.getById(teacherId);
+                SchedulingService schedulingService = new SchedulingService();
+                teacher.setSchedule(schedulingService.getByTeacherId(teacherId));
+                return teacher;
             } catch (RuntimeException e) {
                 LOGGER.warn("Error retrieving teacher\n" + e.getMessage());
                 e.printStackTrace();
@@ -33,7 +38,12 @@ public class TeacherService implements ITeacherDAO {
     public List<Teacher> getAll() {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
-            return teacherDAO.getAll();
+            SchedulingService schedulingService = new SchedulingService();
+            List<Teacher> teachers = teacherDAO.getAll();
+            teachers.forEach(teacher -> {
+                teacher.setSchedule(schedulingService.getByTeacherId(teacher.getId()));
+            });
+            return teachers;
         } catch (RuntimeException e) {
             LOGGER.warn("Error retrieving list of teachers\n" + e.getMessage());
             e.printStackTrace();
@@ -50,7 +60,7 @@ public class TeacherService implements ITeacherDAO {
 
                 teacherDAO.insert(teacher);
                 session.commit();
-                LOGGER.info("Inserted teacher\n");
+                LOGGER.info("Inserted teacher:" + teacher.getName()+"\n");
             } catch (RuntimeException e) {
                 LOGGER.warn("Error inserting teacher\n" + e.getMessage());
                 e.printStackTrace();
@@ -80,7 +90,6 @@ public class TeacherService implements ITeacherDAO {
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
-
                 teacherDAO.deleteById(teacherId);
                 session.commit();
                 LOGGER.info("Deleted teacher\n");
@@ -91,16 +100,7 @@ public class TeacherService implements ITeacherDAO {
         } else LOGGER.warn("Invalid ID Provided");
     }
 
-
     private boolean validateTeacher(Teacher teacher) {
-        Objects.requireNonNull(teacher, "Cannot update a blank teacher");
-
-        if (teacher.getName() != null && teacher.getSubject() != null) return true;
-        else return false;
-
-        // this thows a null pointed exception, when you try to pash any teacher.. validate teacher should just check name and subject
-//        if (Objects.isNull(getById(teacher.getId()))) {
-//            throw new RuntimeException("Teacher is not in the database, please insert into the database");
-//        }
+        return teacher.getName() != null && teacher.getSubject() != null;
     }
 }

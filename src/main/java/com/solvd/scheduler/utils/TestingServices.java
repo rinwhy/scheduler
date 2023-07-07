@@ -154,7 +154,7 @@ public class TestingServices {
         groups.forEach(group -> {
             group.setSchedule(new Schedule(School.getTotalPeriods()));
         });
-        ScheduleGenerator.generateMWFPattern(groups.get(0));
+//        ScheduleGenerator.generateMWFPattern(groups.get(0));
 
         CourseSlot temp = cs.getById(1);
         System.out.println("\n\n\n");

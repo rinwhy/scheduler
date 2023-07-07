@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * SqlSessionUtil provides methods for managing the SqlSessionFactory
+ *
+ * Sets the MyBatis configuration file and properties
+ */
 public class SqlSessionUtil {
     private final static Logger LOGGER = LogManager.getLogger(SqlSessionUtil.class);
     private final static String MYBATIS_CONFIG = "mybatis_config.xml";

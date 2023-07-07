@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+/**
+ * SubjectService provides operations for interacting with Subject Entities in the database
+ */
 public class SubjectService implements ISubjectDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(Subject.class);
@@ -56,12 +59,11 @@ public class SubjectService implements ISubjectDAO {
 
     @Override
     public void insert(Subject subject) {
-
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
             ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
             subjectDAO.insert(subject);
             session.commit();
-            LOGGER.info("Inserted " + subject.name());
+//            LOGGER.info("Inserted " + subject.name() + "\n");
         } catch (RuntimeException e) {
             LOGGER.warn("Error inserting subject\n" + e.getMessage());
             e.printStackTrace();
