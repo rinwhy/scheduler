@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * SubjectService provides operations for interacting with Subject Entities in the database
  */
-public class SubjectService implements ISubjectDAO<Subject> {
+public class SubjectService implements ISubjectDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(Subject.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
@@ -21,7 +21,7 @@ public class SubjectService implements ISubjectDAO<Subject> {
     public Subject getById(int subjectId) {
         if (subjectId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
+                ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
                 return subjectDAO.getById(subjectId);
             } catch (RuntimeException e) {
                 LOGGER.warn("Error retrieving subject\n" + e.getMessage());
@@ -34,7 +34,7 @@ public class SubjectService implements ISubjectDAO<Subject> {
     @Override
     public List<Subject> getAll() {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
             return subjectDAO.getAll();
         } catch (RuntimeException e) {
             LOGGER.warn("Error retrieving list of subjects\n" + e.getMessage());
@@ -47,7 +47,7 @@ public class SubjectService implements ISubjectDAO<Subject> {
     @Override
     public void deleteByName(Subject subject) {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
             subjectDAO.deleteByName(subject);
             session.commit();
             LOGGER.info("Deleted " + subject.name());
@@ -60,10 +60,10 @@ public class SubjectService implements ISubjectDAO<Subject> {
     @Override
     public void insert(Subject subject) {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ISubjectDAO<Subject> subjectDAO = session.getMapper(ISubjectDAO.class);
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
             subjectDAO.insert(subject);
             session.commit();
-            LOGGER.info("Inserted " + subject.name());
+//            LOGGER.info("Inserted " + subject.name() + "\n");
         } catch (RuntimeException e) {
             LOGGER.warn("Error inserting subject\n" + e.getMessage());
             e.printStackTrace();

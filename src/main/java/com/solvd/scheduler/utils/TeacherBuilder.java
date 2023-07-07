@@ -27,7 +27,7 @@ public class TeacherBuilder {
      * Subjects are assigned in a cyclic manner based on the index
      * @param numTeachers Number of teachers to build
      */
-    public static void buildTeachers(int numTeachers) {
+    public static List<Teacher> buildTeachers(int numTeachers) {
         List<Teacher> teachers = new ArrayList<>();
         List<Subject> subjects = Arrays.asList(Subject.values());
         IntStream.range(0, numTeachers).forEach(index -> {
@@ -40,11 +40,8 @@ public class TeacherBuilder {
             //the id should be auto incremented in sql table
             //teach.setId(index+1);
             teachers.add(teach);
-
-            TeacherService teacherService = new TeacherService();
         });
-        storeTeachersInDB(teachers);
-        School.setTeacherList(teachers);
+        return teachers;
     }
 
 
@@ -52,10 +49,8 @@ public class TeacherBuilder {
      * Loops through Teachers list and stores each to database
      * @param teachers Teachers to be stored
      */
-    private static void storeTeachersInDB(List<Teacher> teachers) {
+    public static void storeTeachersInDB(List<Teacher> teachers) {
         TeacherService teacherService = new TeacherService();
-        teachers.forEach(teacher -> {
-            teacherService.insert(teacher);
-        });
+        teachers.forEach(teacherService::insert);
     }
 }

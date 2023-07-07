@@ -7,19 +7,19 @@ import java.util.List;
 /**
  * ICourseSlotDAO interface defines the contract for accessing and manipulating course slot data in the database
  * It provides methods to retrieve, insert, update, and delete course slot objects
- * @param <T> CourseSlot
+
  */
-public interface ICourseSlotDAO<T> {
+public interface ICourseSlotDAO {
 
-    T getById(Integer courseSlotId);
+    CourseSlot getById(Integer courseSlotId);
 
-    List<T> getSlotsByTeacherId(Integer teacherId);
+    List<CourseSlot> getSlotsByTeacherId(Integer teacherId);
 
-    List<T>  getSlotsByStudentGroupId(Integer studentId);
+    List<CourseSlot>  getSlotsByStudentGroupId(Integer studentId);
 
-    void insert(T slot);
+    void insert(CourseSlot slot);
 
-    void update(T slot);
+    void update(CourseSlot slot);
 
     void deleteById(Integer courseSlotId);
 }

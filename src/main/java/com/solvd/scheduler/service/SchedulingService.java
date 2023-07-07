@@ -4,10 +4,10 @@ import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.bin.Schedule;
 import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.dao.ICourseSlotDAO;
+import com.solvd.scheduler.dao.IScheduleDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 
-import java.time.DayOfWeek;
 import java.util.List;
 
 
@@ -16,10 +16,11 @@ import java.util.List;
  *
  * Retrieves a list of CourseSlots and combines them into a Schedule
  */
-public class SchedulingService {
+public class SchedulingService implements IScheduleDAO {
 
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
 
+    @Override
     public Schedule getByTeacherId(int teacherId) {
         if (teacherId > 0) {
             Schedule schedule = buildTeacherSchedule(teacherId);
@@ -36,9 +37,11 @@ public class SchedulingService {
      * @param teacherId
      * @return
      */
-    private Schedule buildTeacherSchedule(int teacherId) {
+
+    @Override
+    public Schedule buildTeacherSchedule(int teacherId) {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> slotsByTeacherId = courseSlotDAO.getSlotsByTeacherId(teacherId);
             Schedule schedule = new Schedule(School.getTotalPeriods());
             slotsByTeacherId.forEach(slot->{
@@ -47,9 +50,9 @@ public class SchedulingService {
             });
             return schedule;
         }
-
     }
 
+    @Override
     public Schedule getByGroupId(int groupId) {
         if (groupId > 0) {
             Schedule schedule = buildGroupSchedule(groupId);
@@ -59,9 +62,10 @@ public class SchedulingService {
         }
     }
 
-    private Schedule buildGroupSchedule(int groupId) {
+    @Override
+    public Schedule buildGroupSchedule(int groupId) {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> slotsByGroupId = courseSlotDAO.getSlotsByStudentGroupId(groupId);
             Schedule schedule = new Schedule(School.getTotalPeriods());
             slotsByGroupId.forEach(slot->{
@@ -70,6 +74,5 @@ public class SchedulingService {
             });
             return schedule;
         }
-
     }
 }

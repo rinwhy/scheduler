@@ -134,7 +134,7 @@ public class Schedule {
 
     private String getGroupID(DayOfWeek day, int period) {
         if (!checkAvailability(day, period)) {
-            return " {class " + scheduleMap.get(day).stream()
+            return " {Group " + scheduleMap.get(day).stream()
                     .filter(courseSlot -> courseSlot.getPeriod() == period)
                     .collect(Collectors.toList())
                     .get(0).getStudentGroup().getId() + "}";

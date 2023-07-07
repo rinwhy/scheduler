@@ -1,17 +1,18 @@
 package com.solvd.scheduler.dao;
+import com.solvd.scheduler.bin.Subject;
+
 import java.util.List;
 
 /**
  * ISubjectDAO interface defines the contract for accessing and manipulating Subject data in the database
  * It provides methods to retrieve, insert,and delete Subjects in the database
- * @param <T> Subject
  */
-public interface ISubjectDAO<T> {
+public interface ISubjectDAO {
 
-    T getById(int subjectId);
+    Subject getById(int subjectId);
 
-    List<T> getAll();
+    List<Subject> getAll();
 
-    void deleteByName(T subject);
-    void insert(T subject);
+    void deleteByName(Subject subject);
+    void insert(Subject subject);
 }

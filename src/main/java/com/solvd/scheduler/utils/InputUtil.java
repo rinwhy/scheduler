@@ -1,91 +1,156 @@
 package com.solvd.scheduler.utils;
 
 import com.solvd.scheduler.bin.School;
+import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.bin.Subject;
+import com.solvd.scheduler.bin.Teacher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * InputUtil contains utility methods for retrieving user input
- *
+ * <p>
  * Retrieves user input and performs validation to perform actions with other parts of the program
  */
 public class InputUtil {
+
     private final static Logger LOGGER = LogManager.getLogger(InputUtil.class);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static List<Integer> getInputs() {
-        List<Integer> inputs = new ArrayList<>();
-        Scanner reader = new Scanner(System.in);
-        int numTeach, numStudentsGroup;
-        boolean closeApp = false;
-        int numPeriods = School.getTotalPeriods();
+
+    public static int getAmountOfTeachers() {
         int numSubjects = Subject.values().length;
+        int numTeach = 0;
+        int input;
+        boolean loop = true;
 
-        LOGGER.info("Please enter number of Teachers (Must be at least " + numSubjects
-                + " number of Teachers): ");
-        numTeach = reader.nextInt();
-        while (numTeach < numSubjects) {
-            LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
-            numTeach = reader.nextInt();
+        while (loop) {
+            try{
+                LOGGER.info("Please enter number of Teachers (Must be at least " + numSubjects + " number of Teachers): \n");
+                input = Integer.parseInt(SCANNER.nextLine());
+                if(input >= numSubjects)
+                 {
+                     loop = false;
+                     numTeach = input;
+                 } else {
+                    LOGGER.info("Input must be within range\n");
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.warn("NumberFormat Exception: The input must be an int!\n");
+            }
         }
-        inputs.add(numTeach);
-        LOGGER.info("Please enter number of Student Groups (Must be 1"
-                + "-" + numPeriods * 2 + " number of Student Group): ");
-        // Range of student Groups, from min to max
-        // (  1 > (numOfPeriods*2)
-        numStudentsGroup = reader.nextInt();
-        while (numStudentsGroup < 1 || numStudentsGroup > numPeriods * 2) {
-            LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
-            numStudentsGroup = reader.nextInt();
-        }
-        inputs.add(numStudentsGroup);
-
-        inputs = selectTable(inputs, reader);
-
-        return inputs;
+        return numTeach;
     }
 
-    public static List<Integer> selectTable(List<Integer> inputs, Scanner reader){
-        int schedule, table, numTeach, numStudentsGroup;
-        numTeach = inputs.get(0);
-        numStudentsGroup = inputs.get(1);
-        LOGGER.info("Please Enter 1 to see Teacher Schedule, 2 for Students Schedule, and 3 for All:");
-        schedule = reader.nextInt();
+    public static int getAmountOfGroups() {
+        int numOfPeriods = School.getTotalPeriods();
+        int numOfGroups = 0;
+        int input;
+        boolean loop = true;
 
-
-        while (schedule < 1 || schedule > 3) {
-            LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
-            schedule = reader.nextInt();
-        }
-        inputs.add(2, schedule);
-
-
-        if (schedule == 1) {
-            LOGGER.info("Please Enter 1-" + numTeach
-                    + " for a specific Teacher Schedule or 0 for all:");
-            table = reader.nextInt();
-            while (table < 0 || table > numTeach) {
-                LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
-                table = reader.nextInt();
+        while (loop) {
+            try{
+                LOGGER.info("Please enter number of Student Groups (Must be 1-" + numOfPeriods * 2 + " number of Student Groups):\n");
+                input = Integer.parseInt(SCANNER.nextLine());
+                if(input >= 1 && input <= numOfPeriods * 2)
+                {
+                    loop = false;
+                    numOfGroups = input;
+                } else {
+                    LOGGER.info("Input must be within range\n");
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.warn("NumberFormat Exception: The input must be an int!\n");
             }
-        } else if (schedule == 2) {
-            LOGGER.info("Please Enter 1-" + numStudentsGroup
-                    + " for a specific Student Group Schedule or 0 for all:");
-            table = reader.nextInt();
-            while (table < 0 || table > numStudentsGroup) {
-                LOGGER.info("The number inputted is invalid, Please reenter a valid number:");
-                table = reader.nextInt();
-            }
-        } else {
-            table = -1;
         }
-        inputs.add(3, table);
-        return  inputs;
+        return numOfGroups;
+    }
+
+
+    public static void menuSelection() {
+
+        boolean isRunning = true;
+        int input;
+
+        while (isRunning) {
+            try {
+                LOGGER.info("Please Enter\n 1 Print a Teacher Schedule\n " +
+                        "2 Print a Student Groups Schedule \n " +
+                        "3 Print All Teachers Schedules:\n " +
+                        "4 Print All Student Groups Schedules:\n\n" +
+                        "0 quit:\n");
+
+                input = Integer.parseInt(SCANNER.nextLine());
+                if(input >=0 && input<=4) {
+                    switch (input) {
+                        case 0:
+                            isRunning = false;
+                            break;
+                        case 1:
+                            getTeacherSchedule();
+                                break;
+                        case 2:
+                            getStudentGroupSchedule();
+                                break;
+                        case 3:
+                            School.getTeacherList().forEach(Teacher::printSchedule);
+                            break;
+                        case 4:
+                            School.getStudentGroupList().forEach(StudentGroup::printSchedule);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+                    LOGGER.info("Make a proper selection\n");
+                }
+            }catch (NumberFormatException e) {
+                LOGGER.warn("NumberFormat Exception: The input must be an int!\n");
+            }
+        }
+    }
+
+    private static void getTeacherSchedule() {
+        boolean loop = true;
+        int input;
+
+        while(loop) {
+            try {
+                LOGGER.info("Enter a teacher id: ");
+                input = Integer.parseInt(SCANNER.nextLine());
+                if (input >= 1 && input <= School.getTeacherList().size()) {
+                    School.getTeacherList().get(input - 1).printSchedule();
+                    loop=false;
+                } else {
+                    LOGGER.info("Enter a correct id\n");
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.warn("NumberFormat Exception: The input must be an int!\n");
+            }
+        }
+    }
+
+    private static void getStudentGroupSchedule() {
+        boolean loop = true;
+        int input;
+
+        while(loop) {
+            try {
+                LOGGER.info("Enter a Group id: ");
+                input = Integer.parseInt(SCANNER.nextLine());
+                if (input >= 1 && input <= School.getStudentGroupList().size()) {
+                    School.getStudentGroupList().get(input - 1).printSchedule();
+                    loop=false;
+                } else {
+                    LOGGER.info("Enter a correct id\n");
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.warn("NumberFormat Exception: The input must be an int!\n");
+            }
+        }
     }
 
 

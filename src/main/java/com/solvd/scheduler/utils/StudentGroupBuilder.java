@@ -21,7 +21,7 @@ public class StudentGroupBuilder {
      * Assigns a random number of students to each group - min 50 max 100
      * @param numGroups Used to create the amount of groups asked for by user
      */
-    public static void buildStudentGroup(int numGroups){
+    public static List<StudentGroup> buildStudentGroup(int numGroups){
         List<StudentGroup> groups = new ArrayList<>();
         Random rand = new Random();
         int max=30,min=10;
@@ -31,8 +31,7 @@ public class StudentGroupBuilder {
             group.setNumStudents(rand.nextInt(max - min + 1) + min);
             groups.add(group);
         });
-        storeStudentGroupInDB(groups);
-
+        return groups;
     }
 
 
@@ -40,10 +39,8 @@ public class StudentGroupBuilder {
      * Used to save each group in the list to the database
      * @param groups Groups to save
      */
-    private static void storeStudentGroupInDB(List<StudentGroup> groups){
+    public static void storeStudentGroupInDB(List<StudentGroup> groups){
         StudentGroupService studentGroupService = new StudentGroupService();
-        groups.forEach(group->{
-            studentGroupService.insert(group);
-        });
+        groups.forEach(studentGroupService::insert);
     }
 }

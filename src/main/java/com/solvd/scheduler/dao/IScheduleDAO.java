@@ -1,14 +1,14 @@
 package com.solvd.scheduler.dao;
+import com.solvd.scheduler.bin.Schedule;
+
+public interface IScheduleDAO {
 
 
-public interface IScheduleDAO<T> {
+    Schedule getByTeacherId(int teacherId);
 
-    T getById(int scheduleId);
+    Schedule buildTeacherSchedule(int teacherId);
 
-    void insert(T schedule);
+    Schedule getByGroupId(int groupId);
 
-    void update(T schedule);
-
-    void deleteById(int scheduleId);
-
+    Schedule buildGroupSchedule(int groupId);
 }

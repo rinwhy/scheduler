@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * TeacherService provides the operations that interact with Teacher objects in the database
  */
-public class TeacherService implements ITeacherDAO<Teacher> {
+public class TeacherService implements ITeacherDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherService.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
@@ -21,7 +21,7 @@ public class TeacherService implements ITeacherDAO<Teacher> {
     public Teacher getById(int teacherId) {
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ITeacherDAO<Teacher> teacherDAO = session.getMapper(ITeacherDAO.class);
+                ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 Teacher teacher = teacherDAO.getById(teacherId);
                 SchedulingService schedulingService = new SchedulingService();
                 teacher.setSchedule(schedulingService.getByTeacherId(teacherId));
@@ -37,7 +37,7 @@ public class TeacherService implements ITeacherDAO<Teacher> {
     @Override
     public List<Teacher> getAll() {
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ITeacherDAO<Teacher> teacherDAO = session.getMapper(ITeacherDAO.class);
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
             SchedulingService schedulingService = new SchedulingService();
             List<Teacher> teachers = teacherDAO.getAll();
             teachers.forEach(teacher -> {
@@ -56,11 +56,11 @@ public class TeacherService implements ITeacherDAO<Teacher> {
     public void insert(Teacher teacher) {
         if (validateTeacher(teacher)) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ITeacherDAO<Teacher> teacherDAO = session.getMapper(ITeacherDAO.class);
+                ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
 
                 teacherDAO.insert(teacher);
                 session.commit();
-                LOGGER.info("Inserted teacher\n");
+                LOGGER.info("Inserted teacher:" + teacher.getName()+"\n");
             } catch (RuntimeException e) {
                 LOGGER.warn("Error inserting teacher\n" + e.getMessage());
                 e.printStackTrace();
@@ -73,7 +73,7 @@ public class TeacherService implements ITeacherDAO<Teacher> {
         if(validateTeacher(teacher)) {
 
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ITeacherDAO<Teacher> teacherDAO = session.getMapper(ITeacherDAO.class);
+                ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 teacherDAO.update(teacher);
                 session.commit();
                 LOGGER.info("Updated teacher\n");
@@ -89,7 +89,7 @@ public class TeacherService implements ITeacherDAO<Teacher> {
 
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                ITeacherDAO<Teacher> teacherDAO = session.getMapper(ITeacherDAO.class);
+                ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 teacherDAO.deleteById(teacherId);
                 session.commit();
                 LOGGER.info("Deleted teacher\n");
@@ -101,7 +101,6 @@ public class TeacherService implements ITeacherDAO<Teacher> {
     }
 
     private boolean validateTeacher(Teacher teacher) {
-        if (teacher.getName() != null && teacher.getSubject() != null) return true;
-        else return false;
+        return teacher.getName() != null && teacher.getSubject() != null;
     }
 }

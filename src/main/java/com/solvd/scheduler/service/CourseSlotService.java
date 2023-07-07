@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  * CourseSlotService provides the operations that interact with CourseSlot objects in the database
  */
-public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
+public class CourseSlotService implements ICourseSlotDAO{
 
     private static final Logger logger = LogManager.getLogger(Main.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
@@ -25,7 +25,7 @@ public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
         if (teacherId > 0) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
-                List<CourseSlot> courseLotsByTeacher = (List<CourseSlot>) courseSlotDAO.getSlotsByTeacherId(teacherId);
+                List<CourseSlot> courseLotsByTeacher = courseSlotDAO.getSlotsByTeacherId(teacherId);
                 session.commit();
 
                 logger.info("Successfully retrieved all Course Slots tied to Teacher " + new TeacherService().getById(teacherId).getName());
@@ -87,7 +87,7 @@ public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
         validateCourseSlot(courseSlot);
 
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.update(courseSlot);
             session.commit();
 
@@ -104,7 +104,7 @@ public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
             CourseSlot courseSlot = getById(courseSlotId);
             if(courseSlot != null){
                 try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-                    ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+                    ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                     courseSlotDAO.deleteById(courseSlotId);
                     session.commit();
                     logger.info("Successfully deleted Course Slot with ID: " + courseSlot.getId() + "\n");
@@ -122,10 +122,10 @@ public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
         validateCourseSlot(courseSlot);
 
         try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
-            ICourseSlotDAO<CourseSlot> courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
+            ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.insert(courseSlot);
             session.commit();
-            logger.info("Successfully saved Course Slot with ID: " + courseSlot.getId() + "\n");
+            logger.info("Successfully saved Course Slot\n");
         }catch(RuntimeException e ){
             logger.warn("Error inserting Course Slot into Database" + e.getMessage() + "\n");
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class CourseSlotService implements ICourseSlotDAO<CourseSlot>{
     }
 
     private void validateCourseSlot(CourseSlot courseSlot) {
-        Objects.requireNonNull(courseSlot, "Cannot procede with a blank Course Slot");
+        Objects.requireNonNull(courseSlot, "Cannot proceed with a blank Course Slot");
 
     }
 }
