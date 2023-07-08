@@ -2,6 +2,7 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.bin.Subject;
 import com.solvd.scheduler.dao.ISubjectDAO;
+import com.solvd.scheduler.dao.ITeacherDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -68,5 +69,18 @@ public class SubjectService implements ISubjectDAO {
             LOGGER.warn("Error inserting subject\n" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getNumberOfSubjects() {
+        int numSubjects=0;
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+            numSubjects= subjectDAO.getNumberOfSubjects();
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error retrieving list of Subjects\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return numSubjects;
     }
 }

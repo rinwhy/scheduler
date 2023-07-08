@@ -3,6 +3,7 @@ package com.solvd.scheduler.service;
 import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.dao.IStudentGroupDAO;
+import com.solvd.scheduler.dao.ITeacherDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -114,6 +115,19 @@ public class StudentGroupService implements IStudentGroupDAO {
             LOGGER.warn("Error deleting student group\n" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getNumberOfStudentGroups() {
+        int numGroups=0;
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            IStudentGroupDAO groupDAO = session.getMapper(IStudentGroupDAO.class);
+            numGroups= groupDAO.getNumberOfStudentGroups();
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error retrieving list of Students\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return numGroups;
     }
 
     private void validateStudentGroup(StudentGroup studentGroup) {

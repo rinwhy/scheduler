@@ -20,4 +20,6 @@ public interface ITeacherDAO {
 
     List<Teacher> getAll();
 
+    int getNumberOfTeachers();
+
 }

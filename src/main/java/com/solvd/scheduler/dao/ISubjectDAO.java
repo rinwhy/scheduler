@@ -15,4 +15,7 @@ public interface ISubjectDAO {
 
     void deleteByName(Subject subject);
     void insert(Subject subject);
+
+    int getNumberOfSubjects();
+
 }

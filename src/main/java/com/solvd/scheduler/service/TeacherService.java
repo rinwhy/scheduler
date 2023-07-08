@@ -53,6 +53,19 @@ public class TeacherService implements ITeacherDAO {
     }
 
     @Override
+    public int getNumberOfTeachers() {
+        int numTeach=0;
+        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
+            numTeach= teacherDAO.getNumberOfTeachers();
+        } catch (RuntimeException e) {
+            LOGGER.warn("Error retrieving list of teachers\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return numTeach;
+    }
+
+    @Override
     public void insert(Teacher teacher) {
         if (validateTeacher(teacher)) {
             try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
