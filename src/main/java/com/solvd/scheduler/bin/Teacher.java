@@ -1,6 +1,5 @@
 package com.solvd.scheduler.bin;
 
-
 import com.solvd.scheduler.utils.SchedulePrinter;
 
 

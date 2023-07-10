@@ -87,6 +87,7 @@ public class InputUtil {
                     switch (input) {
                         case 0:
                             isRunning = false;
+                            SCANNER.close();
                             break;
                         case 1:
                             getTeacherSchedule();

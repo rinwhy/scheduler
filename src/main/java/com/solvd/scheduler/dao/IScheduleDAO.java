@@ -1,8 +1,8 @@
 package com.solvd.scheduler.dao;
+
 import com.solvd.scheduler.bin.Schedule;
 
 public interface IScheduleDAO {
-
 
     Schedule getByTeacherId(int teacherId);
 

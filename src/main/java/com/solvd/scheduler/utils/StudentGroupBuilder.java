@@ -4,7 +4,6 @@ import com.solvd.scheduler.bin.Schedule;
 import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.service.StudentGroupService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

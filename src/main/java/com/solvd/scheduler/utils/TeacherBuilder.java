@@ -6,9 +6,6 @@ import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.bin.Subject;
 import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.service.TeacherService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,8 +16,6 @@ import java.util.stream.IntStream;
  * Provides utility for building and storing Teachers
  */
 public class TeacherBuilder {
-
-    private final static Logger LOGGER = LogManager.getLogger(TeacherBuilder.class);
 
     /**
      * Builds the desired number of Teachers, with randomly generated properties
@@ -37,8 +32,6 @@ public class TeacherBuilder {
             teach.setSubject(subjects.get(index % subjects.size()));
             teach.setName(faker.name().fullName());
             teach.setSchedule(new Schedule(School.getTotalPeriods()));
-            //the id should be auto incremented in sql table
-            //teach.setId(index+1);
             teachers.add(teach);
         });
         return teachers;

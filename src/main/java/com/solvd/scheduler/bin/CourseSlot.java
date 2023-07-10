@@ -9,7 +9,6 @@ import java.time.DayOfWeek;
 public class CourseSlot {
 
     private int id;
-    private int courseSlotId;
     private boolean slotOpen;
     private DayOfWeek  day;
     private int period;
@@ -82,7 +81,6 @@ public class CourseSlot {
     public String toString() {
         return "CourseSlot{" +
                 "id=" + id +
-                ", courseSlotId=" + courseSlotId +
                 ", slotOpen=" + slotOpen +
                 ", day=" + day +
                 ", period=" + period +

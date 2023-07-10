@@ -79,7 +79,6 @@ public class Schedule {
                 String[] tableRow =
                         {
                                 Integer.toString(i),
-
                                 getSubjectName(DayOfWeek.MONDAY, i) + getGroupID(DayOfWeek.MONDAY, i),
                                 getSubjectName(DayOfWeek.TUESDAY, i) + getGroupID(DayOfWeek.TUESDAY, i),
                                 getSubjectName(DayOfWeek.WEDNESDAY, i) + getGroupID(DayOfWeek.WEDNESDAY, i),

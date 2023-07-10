@@ -1,7 +1,6 @@
 package com.solvd.scheduler.dao;
 
 import com.solvd.scheduler.bin.Teacher;
-
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
 package com.solvd.scheduler.dao;
-import com.solvd.scheduler.bin.Subject;
 
+import com.solvd.scheduler.bin.Subject;
 import java.util.List;
 
 /**

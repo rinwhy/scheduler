@@ -1,14 +1,11 @@
 package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.bin.StudentGroup;
-import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.dao.IStudentGroupDAO;
-import com.solvd.scheduler.dao.ITeacherDAO;
 import com.solvd.scheduler.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +15,7 @@ import java.util.Objects;
  */
 public class StudentGroupService implements IStudentGroupDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(StudentGroup.class);
+    private static final Logger LOGGER = LogManager.getLogger(StudentGroupService.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
 
     @Override

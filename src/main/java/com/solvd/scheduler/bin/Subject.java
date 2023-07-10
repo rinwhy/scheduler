@@ -18,12 +18,9 @@ public enum Subject {
 
     private final String subjectName;
 
-
-
     Subject(String subjectName) {
         this.subjectName = subjectName;
     }
-
 
     public String getSubjectName() {
         return subjectName;

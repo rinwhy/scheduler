@@ -1,8 +1,6 @@
 package com.solvd.scheduler.dao;
 
-
 import com.solvd.scheduler.bin.StudentGroup;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,6 @@ import java.util.List;
  * It provides methods to retrieve, insert, update, and delete StudentGroups in the database
  */
 public interface IStudentGroupDAO {
-
 
     StudentGroup getById(int studentId);
 

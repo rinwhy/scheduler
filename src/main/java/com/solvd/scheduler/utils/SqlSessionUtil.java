@@ -22,7 +22,6 @@ public class SqlSessionUtil {
         Properties props = PropertiesUtil.getProperties();
         try(InputStream stream = Resources.getResourceAsStream(MYBATIS_CONFIG);){
             return new SqlSessionFactoryBuilder().build(stream,props);
-
         } catch (IOException e) {
             LOGGER.error("File not found.");
             throw new RuntimeException(e);

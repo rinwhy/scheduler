@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class SubjectService implements ISubjectDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(Subject.class);
+    private static final Logger LOGGER = LogManager.getLogger(SubjectService.class);
     private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
 
     @Override
