@@ -1,43 +1,76 @@
 package com.solvd.scheduler.bin;
 
+import com.solvd.scheduler.utils.SchedulePrinter;
 
+
+/**
+ * Teacher represents the Teacher entity in our database
+ * Contains information pertaining to individual Teachers
+ */
 public class Teacher {
 
     private int id;
     private String name;
-    private Subject teachingSubject;         // subject
-    private Schedule teacherSchedule;        // teachers schedule
-
+    private Subject subject;
+    private Schedule schedule;
 
     public Teacher() {
     }
 
-    public Teacher(int id, String name, Subject teachingSubject) {
+    public Teacher(String name, Subject subject) {
+        this.name = name;
+        this.subject = subject;
+        schedule = new Schedule(School.getTotalPeriods());
+    }
+
+    public Teacher(int id, String name, Subject subject) {
         this.id = id;
         this.name = name;
-        this.teachingSubject = teachingSubject;
-
-        teacherSchedule = new Schedule(School.getTotalPeriods());
+        this.subject = subject;
+        schedule = new Schedule(School.getTotalPeriods());
     }
 
     public int getId() {
         return id;
     }
 
-    public Subject getTeachingSubject() {
-        return teachingSubject;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getName() {
         return name;
     }
 
-    public Schedule getTeacherSchedule() {
-        return teacherSchedule;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void printTeachersSchedule() {
-        teacherSchedule.printTeachersSchedule(this);
+    public Schedule getSchedule() {
+        return schedule;
+    }
+    public void setSchedule(Schedule schedule){
+        this.schedule = schedule;
     }
 
+    public void printSchedule() {
+        SchedulePrinter.printTeacherSchedule(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", subject=" + subject +
+                '}';
+    }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.scheduler.dao.ISubjectDAO">
+    
+    <sql id="subjectBody">
+        subjects.name as subject_name
+    </sql>
+
+    <select id="getById" parameterType="int" resultMap="subjectResultMap">
+        SELECT *
+        FROM subjects
+        WHERE id = #{id};
+    </select>
+
+    <select id="getNumberOfSubjects" resultType="int">
+        SELECT COUNT(id) FROM Subjects;
+    </select>
+
+    <select id="getAll" resultMap="subjectResultMap" >
+        SELECT * FROM Subjects;
+    </select>
+
+    <delete id="deleteByName" >
+        DELETE FROM subjects WHERE name = #{subjectName}
+    </delete>
+
+    <insert id="insert">
+        INSERT INTO subjects (name)
+        VALUES (#{subjectName})
+    </insert>
+
+    <resultMap id="subjectResultMap" type="com.solvd.scheduler.bin.Subject">
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="foreignSubjectResultMap" type= "com.solvd.scheduler.bin.Subject">
+        <result property="name" column="subject_name"/>
+    </resultMap>
+
+</mapper>

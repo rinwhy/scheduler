@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.scheduler.dao.IStudentGroupDAO">
+    <sql id="studentGroupBody">
+        student_groups.id as student_group_id,
+        student_groups.letter as student_group_letter,
+        student_groups.num_students as student_group_num
+    </sql>
+
+
+    <select id="getById" resultMap="studentGroupResultMap">
+        SELECT *
+        FROM student_groups
+        WHERE id = #{id};
+    </select>
+
+    <select id="getNumberOfStudentGroups" resultType="int">
+        SELECT COUNT(id) FROM student_groups;
+    </select>
+
+    <select id="getAll" resultMap="studentGroupResultMap">
+        SELECT * FROM student_groups;
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.scheduler.bin.StudentGroup">
+        INSERT INTO student_groups (letter, num_students)
+        VALUES (#{letter}, #{numStudents});
+    </insert>
+
+    <update id="update">
+        UPDATE student_groups
+        SET letter=#{letter}, num_students =#{numStudents}
+        WHERE id=#{id};
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM student_groups WHERE id = #{id};
+    </delete>
+
+    <delete id="deleteByGroupLetter" parameterType="char">
+        DELETE FROM student_groups WHERE letter = #{letter};
+    </delete>
+
+
+    <resultMap id="studentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
+        <id property="id" column="id"/>
+        <result property="numStudents" column="num_students"/>
+    </resultMap>
+    <resultMap id="foreignKeyStudentGroupResultMap" type="com.solvd.scheduler.bin.StudentGroup">
+        <id property="id" column="student_group_id"/>
+        <result property="numStudents" column="student_group_num"/>
+    </resultMap>
+</mapper>

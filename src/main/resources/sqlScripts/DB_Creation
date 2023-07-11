@@ -1,0 +1,37 @@
+Drop database IF EXISTS Scheduler;
+CREATE DATABASE IF NOT EXISTS Scheduler;
+USE Scheduler;
+
+CREATE TABLE Subjects (
+id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(45) NOT NULL UNIQUE
+);
+
+
+CREATE TABLE Teachers(
+id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
+`name` VARCHAR(45) NOT NULL,
+subject_name VARCHAR(45) NOT NULL,
+FOREIGN KEY(subject_name) REFERENCES Subjects(`name`)
+);
+
+CREATE TABLE Student_Groups (
+id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
+letter CHAR NOT NULL,
+num_students INT NOT NULL
+);
+
+
+CREATE TABLE Course_Slots (
+id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
+period INT NOT NULL,
+`day` VARCHAR(45),
+teacher_id INT NOT NULL,
+group_id INT NOT NULL,
+subject_name VARCHAR(45) NOT NULL,
+FOREIGN KEY (teacher_id) REFERENCES Teachers(id),
+FOREIGN KEY (group_id) REFERENCES Student_Groups(id),
+FOREIGN KEY (subject_name) REFERENCES Subjects(`name`)
+);
+
+
