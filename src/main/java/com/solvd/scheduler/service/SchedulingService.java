@@ -5,8 +5,9 @@ import com.solvd.scheduler.bin.Schedule;
 import com.solvd.scheduler.bin.School;
 import com.solvd.scheduler.dao.ICourseSlotDAO;
 import com.solvd.scheduler.dao.IScheduleDAO;
-import com.solvd.scheduler.utils.SqlSessionUtil;
+import com.solvd.scheduler.utils.SqlFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class SchedulingService implements IScheduleDAO {
 
-    private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
+    private static final SqlSessionFactory factory = SqlFactoryUtil.getInstance().getFactory();
 
     @Override
     public Schedule getByTeacherId(int teacherId) {
@@ -40,7 +41,7 @@ public class SchedulingService implements IScheduleDAO {
 
     @Override
     public Schedule buildTeacherSchedule(int teacherId) {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> slotsByTeacherId = courseSlotDAO.getSlotsByTeacherId(teacherId);
             Schedule schedule = new Schedule(School.getTotalPeriods());
@@ -64,7 +65,7 @@ public class SchedulingService implements IScheduleDAO {
 
     @Override
     public Schedule buildGroupSchedule(int groupId) {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             List<CourseSlot> slotsByGroupId = courseSlotDAO.getSlotsByStudentGroupId(groupId);
             Schedule schedule = new Schedule(School.getTotalPeriods());

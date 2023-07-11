@@ -2,8 +2,9 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.bin.CourseSlot;
 import com.solvd.scheduler.dao.ICourseSlotDAO;
-import com.solvd.scheduler.utils.SqlSessionUtil;
+import com.solvd.scheduler.utils.SqlFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.Objects;
 public class CourseSlotService implements ICourseSlotDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseSlotService.class);
-    private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
+    private static final SqlSessionFactory factory = SqlFactoryUtil.getInstance().getFactory();
 
     @Override
     public List<CourseSlot> getSlotsByTeacherId(Integer teacherId) {
         if (teacherId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                 List<CourseSlot> courseLotsByTeacher = courseSlotDAO.getSlotsByTeacherId(teacherId);
                 session.commit();
@@ -44,7 +45,7 @@ public class CourseSlotService implements ICourseSlotDAO {
     public List<CourseSlot> getSlotsByStudentGroupId(Integer studentGroupId) {
 
         if (studentGroupId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                 List<CourseSlot> courseLotsByStudentGroup = (List<CourseSlot>) courseSlotDAO.getSlotsByStudentGroupId(studentGroupId);
                 session.commit();
@@ -64,7 +65,7 @@ public class CourseSlotService implements ICourseSlotDAO {
     public CourseSlot getById(Integer courseSlotId) {
 
         if (courseSlotId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                 CourseSlot courseSlot = (CourseSlot) courseSlotDAO.getById(courseSlotId);
                 session.commit();
@@ -84,7 +85,7 @@ public class CourseSlotService implements ICourseSlotDAO {
     public void update(CourseSlot courseSlot) {
         validateCourseSlot(courseSlot);
 
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.update(courseSlot);
             session.commit();
@@ -101,7 +102,7 @@ public class CourseSlotService implements ICourseSlotDAO {
 
             CourseSlot courseSlot = getById(courseSlotId);
             if (courseSlot != null) {
-                try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+                try (SqlSession session = factory.openSession()) {
                     ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
                     courseSlotDAO.deleteById(courseSlotId);
                     session.commit();
@@ -117,7 +118,7 @@ public class CourseSlotService implements ICourseSlotDAO {
 
     @Override
     public void deleteAll() {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.deleteAll();
         } catch (RuntimeException e) {
@@ -129,7 +130,7 @@ public class CourseSlotService implements ICourseSlotDAO {
     @Override
     public int getNumberOfCourseSlots() {
         int numCourseSlot = 0;
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             numCourseSlot = courseSlotDAO.getNumberOfCourseSlots();
         } catch (RuntimeException e) {
@@ -143,20 +144,20 @@ public class CourseSlotService implements ICourseSlotDAO {
     public void insert(CourseSlot courseSlot) {
         validateCourseSlot(courseSlot);
 
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ICourseSlotDAO courseSlotDAO = session.getMapper(ICourseSlotDAO.class);
             courseSlotDAO.insert(courseSlot);
             session.commit();
             LOGGER.info("Successfully saved Course Slot. Teacher:" +
                     courseSlot.getTeacherAssigned().getName() +
-                    "  Subject:" + courseSlot.getSubject().name() +
-                    "  GroupID:" + courseSlot.getStudentGroup().getId() +
-                    "  Day: " + courseSlot.getDay() + "\n");
+                    "\tSubject: " + courseSlot.getSubject().name() +
+                    "\tGroupID: " + courseSlot.getStudentGroup().getId() +
+                    "\tDay: " + courseSlot.getDay() +
+                    "\tPeriod: "+ courseSlot.getPeriod() +"\n");
         } catch (RuntimeException e) {
             LOGGER.warn("Error inserting Course Slot into Database" + e.getMessage() + "\n");
             e.printStackTrace();
         }
-
     }
 
     private void validateCourseSlot(CourseSlot courseSlot) {

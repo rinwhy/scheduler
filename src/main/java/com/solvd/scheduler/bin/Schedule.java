@@ -23,7 +23,7 @@ public class Schedule {
         scheduleMap.put(DayOfWeek.THURSDAY, new ArrayList<>(totalPeriods));
         scheduleMap.put(DayOfWeek.FRIDAY, new ArrayList<>(totalPeriods));
 
-        IntStream.rangeClosed(1, 4)
+        IntStream.rangeClosed(1, School.getTotalPeriods())
                 .forEach(period -> scheduleMap.forEach((dayOfWeek, courseSlots) -> {
                     CourseSlot slot = new CourseSlot();
                     slot.setPeriod(period);

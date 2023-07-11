@@ -2,8 +2,9 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.bin.Teacher;
 import com.solvd.scheduler.dao.ITeacherDAO;
-import com.solvd.scheduler.utils.SqlSessionUtil;
+import com.solvd.scheduler.utils.SqlFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
@@ -14,12 +15,13 @@ import java.util.List;
 public class TeacherService implements ITeacherDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherService.class);
-    private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
+    private static final SqlSessionFactory factory = SqlFactoryUtil.getInstance().getFactory();
+
 
     @Override
     public Teacher getById(int teacherId) {
         if (teacherId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 Teacher teacher = teacherDAO.getById(teacherId);
                 SchedulingService schedulingService = new SchedulingService();
@@ -35,7 +37,7 @@ public class TeacherService implements ITeacherDAO {
 
     @Override
     public List<Teacher> getAll() {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
             SchedulingService schedulingService = new SchedulingService();
             List<Teacher> teachers = teacherDAO.getAll();
@@ -54,7 +56,7 @@ public class TeacherService implements ITeacherDAO {
     @Override
     public int getNumberOfTeachers() {
         int numTeach=0;
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
             numTeach= teacherDAO.getNumberOfTeachers();
         } catch (RuntimeException e) {
@@ -67,7 +69,7 @@ public class TeacherService implements ITeacherDAO {
     @Override
     public void insert(Teacher teacher) {
         if (validateTeacher(teacher)) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
 
                 teacherDAO.insert(teacher);
@@ -84,7 +86,7 @@ public class TeacherService implements ITeacherDAO {
     public void update(Teacher teacher) {
         if(validateTeacher(teacher)) {
 
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 teacherDAO.update(teacher);
                 session.commit();
@@ -100,7 +102,7 @@ public class TeacherService implements ITeacherDAO {
     public void deleteById(int teacherId) {
 
         if (teacherId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 ITeacherDAO teacherDAO = session.getMapper(ITeacherDAO.class);
                 teacherDAO.deleteById(teacherId);
                 session.commit();

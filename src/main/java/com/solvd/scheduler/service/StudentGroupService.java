@@ -2,8 +2,9 @@ package com.solvd.scheduler.service;
 
 import com.solvd.scheduler.bin.StudentGroup;
 import com.solvd.scheduler.dao.IStudentGroupDAO;
-import com.solvd.scheduler.utils.SqlSessionUtil;
+import com.solvd.scheduler.utils.SqlFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.Objects;
 public class StudentGroupService implements IStudentGroupDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(StudentGroupService.class);
-    private static final SqlSessionUtil sessionUtil = new SqlSessionUtil();
+    private static final SqlSessionFactory factory = SqlFactoryUtil.getInstance().getFactory();
 
     @Override
     public StudentGroup getById(int studentGroupId) {
         if (studentGroupId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
                 StudentGroup group = studentGroupDAO.getById(studentGroupId);
                 SchedulingService schedulingService = new SchedulingService();
@@ -37,7 +38,7 @@ public class StudentGroupService implements IStudentGroupDAO {
 
     @Override
     public List<StudentGroup> getAll() {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             SchedulingService schedulingService = new SchedulingService();
             List<StudentGroup> groups = studentGroupDAO.getAll();
@@ -57,7 +58,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     public void insert(StudentGroup studentGroup) {
         validateStudentGroup(studentGroup);
 
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.insert(studentGroup);
@@ -72,7 +73,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     @Override
     public void update(StudentGroup studentGroup) {
         validateStudentGroup(studentGroup);
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
             studentGroupDAO.update(studentGroup);
             session.commit();
@@ -87,7 +88,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     @Override
     public void deleteById(int studentGroupId) {
         if (studentGroupId > 0) {
-            try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+            try (SqlSession session = factory.openSession()) {
                 IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
                 studentGroupDAO.deleteById(studentGroupId);
@@ -102,7 +103,7 @@ public class StudentGroupService implements IStudentGroupDAO {
 
     @Override
     public void deleteByGroupLetter(char letter) {
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             IStudentGroupDAO studentGroupDAO = session.getMapper(IStudentGroupDAO.class);
 
             studentGroupDAO.deleteByGroupLetter(letter);
@@ -117,7 +118,7 @@ public class StudentGroupService implements IStudentGroupDAO {
     @Override
     public int getNumberOfStudentGroups() {
         int numGroups=0;
-        try (SqlSession session = sessionUtil.getSessionFactory().openSession()) {
+        try (SqlSession session = factory.openSession()) {
             IStudentGroupDAO groupDAO = session.getMapper(IStudentGroupDAO.class);
             numGroups= groupDAO.getNumberOfStudentGroups();
         } catch (RuntimeException e) {

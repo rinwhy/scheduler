@@ -14,17 +14,37 @@ import java.util.Properties;
  *
  * Sets the MyBatis configuration file and properties
  */
-public class SqlSessionUtil {
-    private final static Logger LOGGER = LogManager.getLogger(SqlSessionUtil.class);
-    private final static String MYBATIS_CONFIG = "mybatis_config.xml";
+public class SqlFactoryUtil {
 
-    public SqlSessionFactory getSessionFactory(){
+    private final static Logger LOGGER = LogManager.getLogger(SqlFactoryUtil.class);
+    private final static String MYBATIS_CONFIG = "mybatis_config.xml";
+    private static SqlFactoryUtil instance;
+    private final SqlSessionFactory factory;
+
+    private SqlFactoryUtil() {
+        factory = getSessionFactory();
+    }
+
+
+    public static SqlFactoryUtil getInstance() {
+        if(instance == null) {
+            instance = new SqlFactoryUtil();
+        }
+        return instance;
+    }
+
+
+    private SqlSessionFactory getSessionFactory(){
         Properties props = PropertiesUtil.getProperties();
-        try(InputStream stream = Resources.getResourceAsStream(MYBATIS_CONFIG);){
+        try(InputStream stream = Resources.getResourceAsStream(MYBATIS_CONFIG)){
             return new SqlSessionFactoryBuilder().build(stream,props);
         } catch (IOException e) {
             LOGGER.error("File not found.");
             throw new RuntimeException(e);
         }
+    }
+
+    public SqlSessionFactory getFactory() {
+        return factory;
     }
 }

@@ -20,9 +20,9 @@ import java.util.stream.IntStream;
  * <p>
  * User input is used to filter for specific information
  */
-public class Automation {
+public class SetUpDB {
 
-    public void setupDB() {
+    public void initialize() {
         initSubjects();
         initTeachers();
         initGroups();
@@ -56,14 +56,14 @@ public class Automation {
         //get number of teachers already in database
         int numTeachersInDB = teacherService.getNumberOfTeachers();
 
-        //if the database has the amount of teachers user requested, retreive teacher from database
+        //if the database has the amount of teachers user requested, retrieve teacher from database
         if (numTeachers <= numTeachersInDB) {
-            List<Teacher> temp = new ArrayList<>();
+            List<Teacher> teacherList = new ArrayList<>();
             IntStream.rangeClosed(1, numTeachers).forEach(index -> {
                 Teacher teacher = teacherService.getById(index);
-                temp.add(teacher);
+                teacherList.add(teacher);
             });
-            teachers = temp;
+            teachers = teacherList;
         } else {
             //creates and stores the extra teachers in database
             teachers = TeacherBuilder.buildTeachers(numTeachers - numTeachersInDB);

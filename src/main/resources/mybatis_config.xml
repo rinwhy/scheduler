@@ -16,9 +16,9 @@
         </environment>
     </environments>
 <mappers>
-    <mapper resource="mappers/courseslotmapper.xml" />
-    <mapper resource="mappers/studentgroupsmapper.xml" />
-    <mapper resource="mappers/subjectmapper.xml" />
-    <mapper resource="mappers/teachermapper.xml" />
+    <mapper resource="mappers/courseSlotMapper.xml" />
+    <mapper resource="mappers/studentGroupMapper.xml" />
+    <mapper resource="mappers/subjectMapper.xml" />
+    <mapper resource="mappers/teacherMapper.xml" />
 </mappers>
 </configuration>
